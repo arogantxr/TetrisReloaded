@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ClaudeCodeTabState">
+    <option name="tabSessions">
+      <map>
+        <entry key="0">
+          <value>
+            <TabSessionState>
+              <option name="projectPath" value="C:\Users\paulp\HTL_STEYR_3AHITN\SEW\JAVA\TetrisReloaded" />
+              <option name="provider" value="claude" />
+              <option name="sessionId" value="89137d63-7f2f-4bbe-89dd-d29c2071bfa4" />
+              <option name="cwd" value="C:\Users\paulp\HTL_STEYR_3AHITN\SEW\JAVA\TetrisReloaded" />
+              <option name="model" value="claude-sonnet-5[1m]" />
+              <option name="permissionMode" value="bypassPermissions" />
+            </TabSessionState>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

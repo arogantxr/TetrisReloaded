@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane styleClass="menu-screen" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="htl.steyr.tetris.controller.MenuController"
+            prefWidth="900"
+            prefHeight="600">
+
+    <!-- X Button oben rechts -->
+    <top>
+        <HBox alignment="CENTER_LEFT" styleClass="menu-header">
+            <padding>
+                <Insets top="22" left="28" right="22"/>
+            </padding>
+            <Label styleClass="brand-label" text="TETRIS" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button text="X"
+                    fx:id="closeButton"
+                    styleClass="exitButton"
+                    prefWidth="35"
+                    prefHeight="35"
+                    style="-fx-font-size: 14; -fx-font-weight: bold;"
+                    onAction="#onClosedButtonClicked"
+            />
+        </HBox>
+    </top>
+
+    <!-- Highscore links -->
+    <left>
+        <VBox spacing="12"
+              prefWidth="190"
+              styleClass="highscore-panel"
+              alignment="TOP_LEFT">
+            <padding>
+                <Insets top="16" left="20" right="16" bottom="24"/>
+            </padding>
+            <Label text="HIGHSCORE" styleClass="sectionLabel"/>
+            <Label text="Die besten Runs" styleClass="muted-label"/>
+
+            <ListView fx:id="highscoreList"
+                      VBox.vgrow="ALWAYS"
+                      styleClass="highscore-list"/>
+        </VBox>
+    </left>
+
+    <!-- Mitte -->
+    <center>
+        <VBox alignment="CENTER" spacing="24" styleClass="menu-center">
+
+            <Label fx:id="welcomeLabel"
+                   text="Willkommen zurück, User!"
+                   styleClass="welcome-label"/>
+
+            <VBox spacing="14"
+                  alignment="CENTER">
+
+                <Button text="Spielen"
+                        fx:id="playButton"
+                        styleClass="playButton"
+                        prefWidth="230"
+                        prefHeight="58"
+                        onAction="#onPlayButtonClicked"
+                />
+
+                <Button text="Optionen"
+                        fx:id="optionsButton"
+                        styleClass="shopButton"
+                        prefWidth="230"
+                        prefHeight="45"
+                        onAction="#onOptionsButtonClicked"
+                />
+
+            </VBox>
+
+        </VBox>
+    </center>
+
+    <!-- Werbebanner rechts -->
+    <right>
+        <VBox alignment="TOP_CENTER"
+              prefWidth="170"
+              styleClass="banner-panel"
+              spacing="12">
+            <padding>
+                <Insets top="28" left="18" right="18" bottom="28"/>
+            </padding>
+            <Label styleClass="banner-title" text="READY&#10;TO PLAY?" />
+            <Pane VBox.vgrow="ALWAYS" />
+            <Label styleClass="banner-mark" text="◆" />
+            <Label styleClass="banner-copy" text="Build your best run&#10;and reach the top." />
+        </VBox>
+    </right>
+
+</BorderPane>

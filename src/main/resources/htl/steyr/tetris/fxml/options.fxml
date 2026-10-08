@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700" prefWidth="900" styleClass="options-screen" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.tetris.controller.OptionsController">
+
+    <!-- Zentrierter Inhalt -->
+    <center>
+
+        <StackPane>
+
+            <VBox alignment="CENTER" maxWidth="560" spacing="16" styleClass="options-card">
+
+                <!-- Titel -->
+                <HBox alignment="CENTER_RIGHT" spacing="20">
+
+                    <Label text="OPTIONS" styleClass="optionsTitle"/>
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <Button fx:id="closeButton" prefHeight="36" prefWidth="36" styleClass="icon-button" text="×" />
+                </HBox>
+
+                <!-- Scrollbarer Content -->
+                <ScrollPane fitToWidth="true" prefViewportHeight="500" prefViewportWidth="450" styleClass="options-scroll">
+
+                    <content>
+
+                        <VBox alignment="CENTER" fillWidth="true" spacing="18" styleClass="options-content">
+
+                            <!-- AUDIO -->
+                            <VBox alignment="CENTER" spacing="10" styleClass="option-section">
+
+                                <Label text="AUDIO" styleClass="sectionLabel"/>
+
+                                <HBox alignment="CENTER" spacing="10">
+
+                                    <Label text="Music" styleClass="option-label" />
+                                    <Slider fx:id="musicSlider" prefWidth="250" />
+                                </HBox>
+
+                                <Button fx:id="prevSongButton" onAction="#prevSongButtonClicked" prefHeight="10" prefWidth="120" styleClass="secondary-button" text="Previous song" />
+                                <Button fx:id="nextSongButton" onAction="#nextSongButtonClicked" prefHeight="10" prefWidth="120" styleClass="secondary-button" text="Next Song" />
+
+                                <HBox alignment="CENTER" spacing="10">
+
+                                    <Label text="Sound" styleClass="option-label" />
+                                    <Slider fx:id="soundSlider" prefWidth="250" />
+                                </HBox>
+                            </VBox>
+                     <VBox alignment="CENTER" prefHeight="72.0" prefWidth="484.0" styleClass="option-section">
+                        <children>
+                           <Label alignment="CENTER" contentDisplay="CENTER" text="APPEARANCE" styleClass="sectionLabel"/>
+                           <Button fx:id="white_darkmode_button" prefHeight="40" prefWidth="220" styleClass="theme-button" text="TOGGLE THEME" />
+                        </children>
+                     </VBox>
+
+                                  <!-- GAMEPLAY -->
+                            <VBox alignment="CENTER" spacing="10">
+
+                                <Label text="Gameplay">
+                                    <font>
+                                        <Font size="22" />
+                                    </font>
+                                </Label>
+
+                                <CheckBox fx:id="showNextPieceCheckBox" text="Nächsten Block anzeigen" />
+                            </VBox>
+
+                                  <!-- DATA -->
+                            <VBox alignment="CENTER" spacing="10" styleClass="option-section">
+
+                                      <Label text="DATA" styleClass="sectionLabel"/>
+
+                                      <Button fx:id="clearDataButton" prefHeight="45" prefWidth="220" styleClass="secondary-button" text="Clear all Data" />
+                            </VBox>
+
+                            <VBox alignment="CENTER" spacing="10" styleClass="option-section">
+
+                                <Label text="HIGHSCORE" styleClass="sectionLabel"/>
+
+                                <Button fx:id="resetHighscoreButton" onAction="#resetHighscoreClicked" prefHeight="45" prefWidth="220" styleClass="secondary-button" text="Reset highscore" />
+                            </VBox>
+
+                            <!-- KEYBINDS -->
+                            <VBox alignment="CENTER" spacing="15" styleClass="option-section">
+
+                                <Label text="KEYBINDS" styleClass="sectionLabel"/>
+
+                                <GridPane alignment="CENTER" hgap="15" vgap="12">
+
+                                    <Label text="LEFT" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Button fx:id="leftKeyButton" prefWidth="140" styleClass="key-button" text="A" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                    <Label text="RIGHT" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Button fx:id="rightKeyButton" prefWidth="140" styleClass="key-button" text="D" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                                    <Label text="ROTATE LEFT" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                    <Button fx:id="rotateLeftButton" prefWidth="140" styleClass="key-button" text="Q" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                                    <Label text="ROTATE RIGHT" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                    <Button fx:id="rotateRightButton" prefWidth="140" styleClass="key-button" text="E" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                                    <Label text="HOLD" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                                    <Button fx:id="holdButton" prefWidth="140" styleClass="key-button" text="SHIFT" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+                                    <Label text="SOFTDROP" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                                    <Button fx:id="softdropButton" prefWidth="140" styleClass="key-button" text="S" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+                                    <Label text="HARDDROP" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                                    <Button fx:id="harddropButton" prefWidth="140" styleClass="key-button" text="SPACE" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                           <columnConstraints>
+                              <ColumnConstraints />
+                              <ColumnConstraints />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+
+                                </GridPane>
+                            </VBox>
+
+                        </VBox>
+
+                    </content>
+
+                </ScrollPane>
+
+                <!-- Save -->
+                <Button fx:id="saveButton" prefHeight="45" prefWidth="180" styleClass="playButton" text="SAVE CHANGES" />
+
+            </VBox>
+
+        </StackPane>
+
+    </center>
+
+</BorderPane>

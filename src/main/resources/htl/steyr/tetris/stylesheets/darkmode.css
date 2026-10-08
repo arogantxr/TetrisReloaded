@@ -1,0 +1,444 @@
+.root {
+    -fx-background-color: linear-gradient(to right, #0a1628, #129888);
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.game-screen {
+    -fx-background-color: linear-gradient(to right, #0a1628 0%, #0d2c3d 58%, #129888 100%);
+    -fx-padding: 0 0 0 28;
+}
+
+.game-content {
+    -fx-padding: 0;
+}
+
+.board-column {
+    -fx-padding: 0 6 0 0;
+}
+
+.subtitle-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.62);
+    -fx-font-size: 10;
+    -fx-font-weight: bold;
+}
+
+.leftPanel {
+    -fx-background-color: rgba(10, 22, 40, 0.9);
+}
+
+.rightPanel, .info-panel {
+    -fx-background-color: rgba(10, 22, 40, 0.85);
+}
+
+.game-container {
+    -fx-spacing: 10;
+    -fx-padding: 18;
+}
+
+.game-pane {
+    -fx-background-color: #0a1628;
+}
+
+.info-panel {
+    -fx-background-radius: 0;
+    -fx-padding: 18;
+    -fx-background-color: rgba(7, 20, 35, 0.92);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.28), 18, 0.2, 0, 6);
+    -fx-background-radius: 12 0 0 12;
+    -fx-border-radius: 12 0 0 12;
+}
+
+.hold-card .preview-pane {
+    -fx-min-height: 106;
+}
+
+.menu-screen, .auth-screen, .options-screen {
+    -fx-background-color: linear-gradient(to bottom right, #081525, #0d3040 62%, #129888);
+    -fx-padding: 0;
+}
+
+.menu-header, .auth-header {
+    -fx-background-color: rgba(5, 16, 29, 0.72);
+}
+
+.brand-label, .auth-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.brand-label {
+    -fx-font-size: 20;
+}
+
+.highscore-panel {
+    -fx-background-color: rgba(5, 16, 29, 0.56);
+}
+
+.muted-label {
+    -fx-text-fill: #8da1b8;
+    -fx-font-size: 12;
+}
+
+.welcome-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+}
+
+.highscore-list {
+    -fx-background-color: rgba(255, 255, 255, 0.055);
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 10;
+    -fx-padding: 5;
+}
+
+.highscore-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.08) transparent;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 12 8;
+}
+
+.banner-panel {
+    -fx-background-color: #071827;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-border-width: 0 0 0 1;
+}
+
+.banner-kicker {
+    -fx-text-fill: #129888;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+}
+
+.banner-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 22;
+    -fx-font-weight: bold;
+}
+
+.banner-mark {
+    -fx-text-fill: #cd32ca;
+    -fx-font-size: 48;
+}
+
+.banner-copy {
+    -fx-text-fill: #8da1b8;
+    -fx-font-size: 11;
+}
+
+.auth-card, .options-card {
+    -fx-background-color: rgba(7, 20, 35, 0.92);
+    -fx-background-radius: 16;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 16;
+    -fx-padding: 30;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 24, 0.25, 0, 8);
+}
+
+.options-card {
+    -fx-padding: 26;
+}
+
+.auth-title {
+    -fx-font-size: 44;
+}
+
+.logo-title {
+    -fx-text-fill: #cd32ca;
+    -fx-font-size: 54;
+    -fx-font-weight: 900;
+    -fx-effect: dropshadow(gaussian, rgba(205, 50, 202, 0.45), 12, 0.3, 0, 3);
+}
+
+.field-label {
+    -fx-text-fill: #8da1b8;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+}
+
+.auth-switch {
+    -fx-text-fill: #cd32ca;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.options-content {
+    -fx-padding: 4 10;
+}
+
+.option-section {
+    -fx-padding: 16;
+    -fx-background-color: rgba(255, 255, 255, 0.065);
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.options-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.options-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.option-label {
+    -fx-text-fill: #c6d1dc;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+.secondary-button {
+    -fx-background-color: #1b314b;
+    -fx-text-fill: #e7edf4;
+    -fx-border-color: #36516e;
+    -fx-border-width: 1;
+}
+
+.key-button {
+    -fx-background-color: #13243a;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #36516e;
+    -fx-border-width: 1;
+}
+
+.key-button:hover {
+    -fx-border-color: #cd32ca;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #294664;
+    -fx-border-color: #cd32ca;
+}
+
+.theme-button {
+    -fx-background-color: #129888;
+    -fx-text-fill: #06131e;
+    -fx-border-color: transparent;
+}
+
+.theme-button:hover {
+    -fx-background-color: #20b7a4;
+}
+
+.slider .track {
+    -fx-background-color: #29415b;
+    -fx-background-radius: 4;
+}
+
+.slider .thumb {
+    -fx-background-color: #cd32ca;
+    -fx-background-radius: 8;
+}
+
+.preview-pane {
+    -fx-border-color: #cd32ca;
+    -fx-border-width: 2;
+    -fx-background-color: #0a1628;
+    -fx-background-radius: 4;
+}
+
+.sidebar-caption, .card-caption {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.sidebar-caption {
+    -fx-font-size: 12;
+}
+
+.card-caption {
+    -fx-text-fill: #8da1b8;
+    -fx-font-size: 10;
+}
+
+.stat-card {
+    -fx-padding: 12;
+    -fx-background-color: rgba(255, 255, 255, 0.055);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 8;
+}
+
+.small-stat-card {
+    -fx-padding: 10 12;
+    -fx-min-width: 0;
+    -fx-background-color: rgba(255, 255, 255, 0.055);
+    -fx-background-radius: 8;
+}
+
+.stats-row {
+    -fx-fill-height: true;
+}
+
+.level-label {
+    -fx-text-fill: #129888;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.control-label {
+    -fx-text-fill: #c6d1dc;
+    -fx-font-size: 10;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8da1b8;
+    -fx-font-size: 21;
+    -fx-padding: 0 4;
+}
+
+.icon-button:hover {
+    -fx-text-fill: #ffffff;
+}
+
+.pause-button {
+    -fx-background-color: #129888;
+    -fx-text-fill: #06131e;
+    -fx-background-radius: 7;
+    -fx-font-size: 10;
+}
+
+.title-label, .tetrisLabel {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+}
+
+.optionsTitle {
+    -fx-text-fill: #cd32ca;
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+}
+
+.sectionLabel {
+    -fx-text-fill: #cd32ca;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.info-label, .infoLabel, .info-title {
+    -fx-text-fill: #ffffff;
+}
+
+.info-label {
+    -fx-font-size: 16;
+}
+
+.info-title {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.score-label {
+    -fx-text-fill: #cd32ca;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.coin-label, .highscoreValue, .skin-name-label {
+    -fx-text-fill: #ffc107;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.username-label {
+    -fx-text-fill: #129888;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.skin-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14;
+}
+
+.button {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.text-field, .password-field {
+    -fx-background-color: #13243a;
+    -fx-background-radius: 6;
+    -fx-border-color: #2d4663;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #8da1b8;
+    -fx-padding: 9 12;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #cd32ca;
+}
+
+.playButton {
+    -fx-background-color: #cd32ca;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-font-size: 16;
+}
+
+.shopButton, .choiceBox, .difficultyChoiceBox {
+    -fx-background-color: #129888;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-font-weight: bold;
+}
+
+.exit-button, .exitButton {
+    -fx-background-color: #d51c1c;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+.playButton:hover, .shopButton:hover, .exitButton:hover,
+.exit-button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.labels, .Label-darkmode {
+    -fx-text-fill: #ffffff;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+}
+
+.list-cell {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10;
+}
+
+.list-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.text-area {
+    -fx-control-inner-background: rgba(255, 255, 255, 0.08);
+    -fx-text-fill: #ffffff;
+}
