@@ -47,6 +47,8 @@ public class OptionsController {
     private Button softdropButton;
     @FXML
     private Button harddropButton;
+    @FXML
+    private Button pauseKeyButton;
 
     private Button currentKeyButton; // merkt sich, welcher Button gerade auf Tasteneingabe wartet
 
@@ -76,6 +78,7 @@ public class OptionsController {
         setupKeyButton(holdButton, "hold", ud.getSetting("hold"));
         setupKeyButton(softdropButton, "softdrop", ud.getSetting("softdrop"));
         setupKeyButton(harddropButton, "harddrop", ud.getSetting("harddrop"));
+        setupKeyButton(pauseKeyButton, "pause", ud.getSetting("pause"));
 
         white_darkmode_button.setText(ViewSwitcher.isDarkMode() ? "Dark Mode" : "Light Mode");
         white_darkmode_button.setOnAction(e -> toggleTheme());
@@ -196,6 +199,7 @@ public class OptionsController {
             ud.setSetting("hold", KeyCode.C);
             ud.setSetting("softdrop", KeyCode.S);
             ud.setSetting("harddrop", KeyCode.SPACE);
+            ud.setSetting("pause", KeyCode.P);
             ud.save();
 
             // Buttons in der UI ebenfalls aktualisieren
@@ -206,6 +210,7 @@ public class OptionsController {
             holdButton.setText(KeyCode.C.getName());
             softdropButton.setText(KeyCode.S.getName());
             harddropButton.setText(KeyCode.SPACE.getName());
+            pauseKeyButton.setText(KeyCode.P.getName());
         });
     }
 
@@ -252,7 +257,7 @@ public class OptionsController {
 
     // Prüft, ob eine bestimmte Taste schon einer anderen Aktion zugewiesen ist
     private boolean isKeyAlreadyUsed(String skipAction, String newKey) {
-        String[] actions = { "left", "right", "rotate_left", "rotate_right", "hold", "softdrop", "harddrop"};
+        String[] actions = { "left", "right", "rotate_left", "rotate_right", "hold", "softdrop", "harddrop", "pause"};
         UserData ud = UserSession.getUserData();
         for (String a : actions) {
             if (a.equals(skipAction)) continue; // die eigene Aktion überspringen (man darf die gleiche Taste behalten)
@@ -264,7 +269,7 @@ public class OptionsController {
     // Prüft, ob wirklich jede Aktion eine Taste zugewiesen hat (kein Button zeigt noch "Press Key...")
     private boolean allKeysAssigned() {
         Button[] all = { leftKeyButton, rightKeyButton,
-                rotateLeftButton, rotateRightButton, holdButton, softdropButton, harddropButton};
+                rotateLeftButton, rotateRightButton, holdButton, softdropButton, harddropButton, pauseKeyButton};
         for (Button b : all)
             if (b.getText().equals("Press Key...")) return false;
         return true;
@@ -277,7 +282,7 @@ public class OptionsController {
         Button[] all = {
                 leftKeyButton, rightKeyButton,
                 rotateLeftButton, rotateRightButton,
-                holdButton, softdropButton, harddropButton, saveButton
+                holdButton, softdropButton, harddropButton, pauseKeyButton, saveButton
         };
 
         for (Button b : all) {

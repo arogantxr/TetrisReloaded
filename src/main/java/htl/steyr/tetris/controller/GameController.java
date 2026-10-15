@@ -63,6 +63,9 @@ public class GameController {
     private int lines = 0;
     private int level = 1;
 
+    private static final int LEVEL_2_SCORE = 1_000;
+    private static final int LEVEL_3_SCORE = 2_000;
+
     private final Score scoreCalc = new Score(); // berechnet Punktewerte
     private boolean lastMoveWasRotate = false;   // wird für die T-Spin-Erkennung gebraucht
 
@@ -127,10 +130,14 @@ public class GameController {
     // Zentrale Tastatur-Eingabeverarbeitung. Liest die individuellen Tastenbelegungen
     // aus UserData aus (siehe Options-Screen) statt fix verdrahteter Tasten.
     private void handleKey(javafx.scene.input.KeyEvent event) {
+        KeyCode code = event.getCode();
+        if (code == ud.getSetting("pause")) {
+            onPauseButtonClicked(new ActionEvent());
+            event.consume();
+            return;
+        }
         event.consume();
         if (paused) return;
-
-        KeyCode code = event.getCode();
 
         if (code == ud.getSetting("left")) {
             move(0, -1);
@@ -139,7 +146,7 @@ public class GameController {
         } else if (code == ud.getSetting("down") || code == ud.getSetting("softdrop")) {
             if (move(1, 0)) {
                 score += scoreCalc.softDrop(1); // Punkte für manuelles schnelleres Fallen
-                scoreLabel.setText(String.format("%03d", score));
+                updateProgression();
             } else {
                 lockPiece(); // kann nicht mehr weiter fallen -> sofort einfrieren
             }
@@ -151,8 +158,6 @@ public class GameController {
             holdCurrent();
         } else if (code == ud.getSetting("harddrop")) {
             hardDrop();
-        } else if (code.toString().equals("ESCAPE")){
-            onPauseButtonClicked(new ActionEvent());
         }
 
         render(); // nach jeder Eingabe das Spielfeld neu zeichnen
@@ -220,7 +225,8 @@ public class GameController {
 
     // Tauscht den aktuellen Stein mit dem gehaltenen Stein (einmal pro Spawn erlaubt)
     private void holdCurrent() {
-        if (holdUsed) return;
+        // Ab Level 2 ist Hold gesperrt, auch wenn die Taste weiterhin gedrückt wird.
+        if (level >= 2 || holdUsed) return;
         holdUsed = true;
 
         if (hold == null) {
@@ -236,7 +242,7 @@ public class GameController {
             blockCol = Board.COLS / 2 - 2;
         }
 
-        drawPreview(holdPane, hold); // "Hold"-Vorschau aktualisieren
+        updateHoldPreview(); // "Hold"-Vorschau aktualisieren oder bei Level 2 leeren
     }
 
     // Friert den aktuellen Stein im Spielfeld ein, berechnet Punkte, prüft Level-Aufstieg
@@ -263,16 +269,55 @@ public class GameController {
 
         if (cleared > 0) {
             lines += cleared;
-            level = 1 + lines / 10; // alle 10 Reihen ein Level höher
-            startTimeline(Math.max(150, 600 - (level - 1) * 50)); // Spiel wird mit jedem Level schneller (min. 150ms)
         }
 
-        scoreLabel.setText(String.format("%03d", score));
+        updateProgression();
         linesLabel.setText(String.format("%02d", lines));
-        levelLabel.setText(String.format("%02d", level));
 
         lastMoveWasRotate = false;
         spawnPiece();
+    }
+
+    // Level richten sich nach dem Punktestand: Ab 1.000 Punkten Level 2,
+    // ab 2.000 Punkten Level 3. Der Level-Aufstieg aktualisiert auch die Sperren.
+    private void updateProgression() {
+
+        int newLevel = 1;
+
+        if (score >= LEVEL_3_SCORE) {
+            newLevel = 3;
+        } else if (score >= LEVEL_2_SCORE) {
+            newLevel = 2;
+        }
+
+        scoreLabel.setText(String.format("%03d", score));
+
+        if (newLevel != level) {
+            level = newLevel;
+
+            // Steine fallen in höheren Levels schneller
+            int speed = 600 - (level - 1) * 50;
+
+            if (speed < 150) {
+                speed = 150;
+            }
+
+            startTimeline(speed);
+        }
+
+        levelLabel.setText(String.format("%02d", level));
+
+        updateHoldPreview();
+        updateNextPreview();
+    }
+
+    // Hold ist ab Level 2 deaktiviert und wird dann auch nicht mehr angezeigt.
+    private void updateHoldPreview() {
+        if (level < 2 && hold != null) {
+            drawPreview(holdPane, hold);
+        } else {
+            holdPane.getChildren().clear();
+        }
     }
 
     // Zeichnet das gesamte Spielfeld neu: zuerst das gelockte Board, dann der fallende Stein darüber
@@ -303,7 +348,8 @@ public class GameController {
     // Zeichnet die "Next"-Vorschau, sofern der User sie in den Einstellungen aktiviert hat.
     // Ist "Blind-Modus" aktiv (showNextPiece == false), bleibt die Pane leer.
     private void updateNextPreview() {
-        if (ud.isShowNextPiece()) {
+        // Level 3 sperrt die Next-Ansicht unabhängig von der Benutzereinstellung.
+        if (level < 3 && ud.isShowNextPiece()) {
             drawPreview(nextPane, next);
         } else {
             nextPane.getChildren().clear();
