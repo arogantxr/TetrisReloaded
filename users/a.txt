@@ -1,0 +1,19 @@
+{
+  "password": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+  "settings": {
+    "up": "W",
+    "down": "S",
+    "left": "A",
+    "right": "D",
+    "rotate_left": "Z",
+    "rotate_right": "X",
+    "hold": "C",
+    "softdrop": "S",
+    "harddrop": "SPACE",
+    "pause": "P"
+  },
+  "volumeMusic": 50,
+  "volumeSfx": 50,
+  "highscore": 0,
+  "showNextPiece": true
+}

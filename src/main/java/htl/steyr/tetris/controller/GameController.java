@@ -130,10 +130,14 @@ public class GameController {
     // Zentrale Tastatur-Eingabeverarbeitung. Liest die individuellen Tastenbelegungen
     // aus UserData aus (siehe Options-Screen) statt fix verdrahteter Tasten.
     private void handleKey(javafx.scene.input.KeyEvent event) {
+        KeyCode code = event.getCode();
+        if (code == ud.getSetting("pause")) {
+            onPauseButtonClicked(new ActionEvent());
+            event.consume();
+            return;
+        }
         event.consume();
         if (paused) return;
-
-        KeyCode code = event.getCode();
 
         if (code == ud.getSetting("left")) {
             move(0, -1);
@@ -154,8 +158,6 @@ public class GameController {
             holdCurrent();
         } else if (code == ud.getSetting("harddrop")) {
             hardDrop();
-        } else if (code.toString().equals("ESCAPE")){
-            onPauseButtonClicked(new ActionEvent());
         }
 
         render(); // nach jeder Eingabe das Spielfeld neu zeichnen

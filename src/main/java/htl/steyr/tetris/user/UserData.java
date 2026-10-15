@@ -75,6 +75,9 @@ public class UserData {
 
             settings = new ArrayList<>();
             json.getAsJsonObject("settings").entrySet().forEach(e -> settings.add(new Setting(e.getKey(), KeyCode.valueOf(e.getValue().getAsString()))));
+            if (getSetting("pause") == null) {
+                settings.add(new Setting("pause", KeyCode.P));
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,7 +110,8 @@ public class UserData {
                 new Setting("rotate_right", KeyCode.X),
                 new Setting("hold", KeyCode.C),
                 new Setting("softdrop", KeyCode.S),
-                new Setting("harddrop", KeyCode.SPACE)
+                new Setting("harddrop", KeyCode.SPACE),
+                new Setting("pause", KeyCode.P)
         ));
     }
 
