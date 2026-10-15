@@ -29,6 +29,8 @@ public class GameController {
     @FXML
     private GridPane gameField;   // das Spielfeld-Raster
     @FXML
+    private Label countdownLabel; // Anzeige für den Countdown vor dem Spielstart
+    @FXML
     private Label scoreLabel;
     @FXML
     private Label linesLabel;
@@ -59,6 +61,8 @@ public class GameController {
     private int blockRow, blockCol; // Position der oberen linken Ecke des 4x4-Rasters von "current"
 
     private Timeline timeline;  // steuert das automatische Fallen des Steins
+    private Timeline countdownTimeline;
+    private boolean gameStarted = false;
     private boolean paused = false;
     private static final int MAX_PAUSES = 3;
     private int pausesUsed = 0;
@@ -104,8 +108,8 @@ public class GameController {
             }
         });
 
-        startTimeline(600); // Stein fällt anfangs alle 600ms eine Reihe
         render();
+        startCountdown(); // Das Spiel beginnt erst nach dem Countdown.
     }
 
     // Erstellt einmalig das 20x10-Raster aus Rectangle-Objekten und fügt sie ins GridPane ein
@@ -134,10 +138,34 @@ public class GameController {
         timeline.play();
     }
 
+    // Zeigt 3, 2 und 1 an und startet danach das automatische Fallen.
+    private void startCountdown() {
+        int[] secondsLeft = {3};
+        countdownLabel.setText(String.valueOf(secondsLeft[0]));
+
+        countdownTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            secondsLeft[0]--;
+            if (secondsLeft[0] == 0) {
+                countdownLabel.setVisible(false);
+                gameStarted = true;
+                startTimeline(600);
+            } else {
+                countdownLabel.setText(String.valueOf(secondsLeft[0]));
+            }
+        }));
+        countdownTimeline.setCycleCount(3);
+        countdownTimeline.play();
+    }
+
     // Zentrale Tastatur-Eingabeverarbeitung. Liest die individuellen Tastenbelegungen
     // aus UserData aus (siehe Options-Screen) statt fix verdrahteter Tasten.
     private void handleKey(javafx.scene.input.KeyEvent event) {
         KeyCode code = event.getCode();
+        // Während des Countdowns soll keine Spieleingabe den Start beeinflussen.
+        if (!gameStarted) {
+            event.consume();
+            return;
+        }
         if (code == ud.getSetting("pause")) {
             onPauseButtonClicked(new ActionEvent());
             event.consume();
@@ -424,6 +452,8 @@ public class GameController {
 
     // Button oben rechts: Spiel beenden
     public void onCloseButtonClicked(ActionEvent actionEvent) {
+        if (countdownTimeline != null) countdownTimeline.stop();
+        if (timeline != null) timeline.stop();
         ud.save();
         ViewSwitcher.switchTo("menu.fxml");
     }
@@ -431,6 +461,9 @@ public class GameController {
     // Pause-Button: stoppt/startet die Eingabeverarbeitung und das Fallen,
     // ändert das Symbol auf dem Button entsprechend
     public void onPauseButtonClicked(ActionEvent actionEvent) {
+        // Pausieren ist erst möglich, wenn das Spiel tatsächlich gestartet ist.
+        if (!gameStarted) return;
+
         // Wenn das Spiel nicht pausiert ist und keine Pausen mehr übrig sind, passiert nichts
         if (!paused && MAX_PAUSES - pausesUsed == 0) return;
 

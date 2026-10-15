@@ -18,7 +18,11 @@
             <VBox alignment="TOP_CENTER" spacing="14" styleClass="board-column" translateX="-105.0">
                 <Label styleClass="title-label" text="TETRIS" />
                 <Label styleClass="subtitle-label" text="CLASSIC MODE" />
-                <GridPane fx:id="gameField" focusTraversable="true" prefWidth="250.0" prefHeight="500.0" minWidth="250.0" minHeight="500.0" maxWidth="250.0" maxHeight="500.0" />
+                <StackPane>
+                    <GridPane fx:id="gameField" focusTraversable="true" prefWidth="250.0" prefHeight="500.0" minWidth="250.0" minHeight="500.0" maxWidth="250.0" maxHeight="500.0" />
+                    <!-- Liegt über dem Spielfeld und zeigt den Countdown bis zum Start. -->
+                    <Label fx:id="countdownLabel" mouseTransparent="true" styleClass="countdown-label" text="3" />
+                </StackPane>
             </VBox>
 
             <VBox StackPane.alignment="CENTER_RIGHT" alignment="TOP_LEFT" prefWidth="210" minWidth="210" maxWidth="210" spacing="14" styleClass="info-panel">
