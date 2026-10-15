@@ -78,6 +78,7 @@
                                 </Label>
 
                                 <CheckBox fx:id="showNextPieceCheckBox" text="Nächsten Block anzeigen" />
+                                <Button fx:id="holdEnableButton" prefWidth="250" styleClass="secondary-button" text="Hold-Funktion: Aktiviert" />
                             </VBox>
 
                                   <!-- DATA -->

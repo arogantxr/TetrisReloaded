@@ -95,8 +95,14 @@ public class GameController {
             updateNextPreview();
         });
 
-        // Ersten Preview korrekt zeichnen (nach Layout-Pass)
-        Platform.runLater(this::updateNextPreview);
+        holdPane.widthProperty().addListener((obs, oldVal, newVal) -> updateHoldPreview());
+        holdPane.heightProperty().addListener((obs, oldVal, newVal) -> updateHoldPreview());
+
+        // Erste Vorschauen nach dem Layout-Pass korrekt zeichnen
+        Platform.runLater(() -> {
+            updateNextPreview();
+            updateHoldPreview();
+        });
 
         // Tastatursteuerung kann erst gesetzt werden, sobald die Scene existiert
         // (beim ersten initialize() ist die Scene oft noch null)
@@ -260,8 +266,7 @@ public class GameController {
 
     // Tauscht den aktuellen Stein mit dem gehaltenen Stein (einmal pro Spawn erlaubt)
     private void holdCurrent() {
-        // Ab Level 2 ist Hold gesperrt, auch wenn die Taste weiterhin gedrückt wird.
-        if (level >= 2 || holdUsed) return;
+        if (!ud.isHoldEnable() || level >= 2 || holdUsed) return;
         holdUsed = true;
 
         if (hold == null) {
@@ -277,7 +282,7 @@ public class GameController {
             blockCol = Board.COLS / 2 - 2;
         }
 
-        updateHoldPreview(); // "Hold"-Vorschau aktualisieren oder bei Level 2 leeren
+        updateHoldPreview();
     }
 
     // Friert den aktuellen Stein im Spielfeld ein, berechnet Punkte, prüft Level-Aufstieg
@@ -346,9 +351,9 @@ public class GameController {
         updateNextPreview();
     }
 
-    // Hold ist ab Level 2 deaktiviert und wird dann auch nicht mehr angezeigt.
+    // Hold muss in den Optionen aktiviert sein und ist ab Level 2 gesperrt.
     private void updateHoldPreview() {
-        if (level < 2 && hold != null) {
+        if (ud.isHoldEnable() && level < 2 && hold != null) {
             drawPreview(holdPane, hold);
         } else {
             holdPane.getChildren().clear();

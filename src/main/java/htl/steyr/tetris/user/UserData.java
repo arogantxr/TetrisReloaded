@@ -18,6 +18,7 @@ public class UserData {
     private int highscore;
     private int score = 0;
     private boolean showNextPiece = true;
+    private boolean holdEnable = true;
 
 
     public UserData(String username, String password, boolean isNew) {
@@ -32,6 +33,7 @@ public class UserData {
             this.volumeSfx = 50;
             this.highscore = 0;
             this.showNextPiece = true;
+            this.holdEnable = true;
             save();
         } else {
             load(username);
@@ -49,6 +51,7 @@ public class UserData {
         json.addProperty("volumeSfx", volumeSfx);
         json.addProperty("highscore", highscore);
         json.addProperty("showNextPiece", showNextPiece);
+        json.addProperty("holdEnable", holdEnable);
 
         Path file = Paths.get("users", username.toLowerCase() + ".txt");
         try {
@@ -72,6 +75,7 @@ public class UserData {
             volumeSfx = json.get("volumeSfx").getAsInt();
             highscore = json.get("highscore").getAsInt();
             showNextPiece = !json.has("showNextPiece") || json.get("showNextPiece").getAsBoolean();
+            holdEnable = !json.has("holdEnable") || json.get("holdEnable").getAsBoolean();
 
             settings = new ArrayList<>();
             json.getAsJsonObject("settings").entrySet().forEach(e -> settings.add(new Setting(e.getKey(), KeyCode.valueOf(e.getValue().getAsString()))));
@@ -166,5 +170,13 @@ public class UserData {
 
     public void setShowNextPiece(boolean showNextPiece) {
         this.showNextPiece = showNextPiece;
+    }
+
+    public boolean isHoldEnable() {
+        return holdEnable;
+    }
+
+    public void setHoldEnable(boolean holdEnable) {
+        this.holdEnable = holdEnable;
     }
 }

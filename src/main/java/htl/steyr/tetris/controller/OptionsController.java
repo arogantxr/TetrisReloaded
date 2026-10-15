@@ -29,6 +29,8 @@ public class OptionsController {
     private Button clearDataButton;
     @FXML
     private CheckBox showNextPieceCheckBox;
+    @FXML
+    private Button holdEnableButton;
 
     // Buttons für die Tastenbelegung der einzelnen Spielaktionen
     @FXML
@@ -53,6 +55,7 @@ public class OptionsController {
     private Button currentKeyButton; // merkt sich, welcher Button gerade auf Tasteneingabe wartet
 
     private UserData ud;
+    private boolean holdEnabled;
 
     @FXML
     public void initialize() {
@@ -67,6 +70,8 @@ public class OptionsController {
         soundSlider.setValue(ud.getVolumeSfx());
 
         showNextPieceCheckBox.setSelected(ud.isShowNextPiece());
+        holdEnabled = ud.isHoldEnable();
+        updateHoldEnableButton();
 
         // Für jede Spielaktion den passenden Button mit der aktuellen Taste beschriften
         // und Klick-Listener zum Neubelegen einrichten
@@ -85,6 +90,12 @@ public class OptionsController {
         saveButton.setOnAction(e -> saveSettings());
         closeButton.setOnAction(e -> returnToMenu());
         clearDataButton.setOnAction(e -> clearAllData());
+        holdEnableButton.setOnAction(e -> {
+            holdEnabled = !holdEnabled;
+            ud.setHoldEnable(holdEnabled);
+            ud.save();
+            updateHoldEnableButton();
+        });
         // Speichern erst erlauben, wenn wirklich jeder Taste eine Belegung zugewiesen ist
         saveButton.setDisable(!allKeysAssigned());
 
@@ -123,6 +134,7 @@ public class OptionsController {
         ud.setVolumeMusic((int) musicSlider.getValue());
         ud.setVolumeSfx((int) soundSlider.getValue());
         ud.setShowNextPiece(showNextPieceCheckBox.isSelected());
+        ud.setHoldEnable(holdEnabled);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Gespeichert");
@@ -187,9 +199,12 @@ public class OptionsController {
             ud.setVolumeMusic(50);
             ud.setVolumeSfx(50);
             ud.setShowNextPiece(true);
+            ud.setHoldEnable(true);
             musicSlider.setValue(50);
             soundSlider.setValue(50);
             showNextPieceCheckBox.setSelected(true);
+            holdEnabled = true;
+            updateHoldEnableButton();
 
             // Standard-Tastenbelegung wiederherstellen
             ud.setSetting("left", KeyCode.S);
@@ -212,6 +227,10 @@ public class OptionsController {
             harddropButton.setText(KeyCode.SPACE.getName());
             pauseKeyButton.setText(KeyCode.P.getName());
         });
+    }
+
+    private void updateHoldEnableButton() {
+        holdEnableButton.setText("Hold-Funktion: " + (holdEnabled ? "Aktiviert" : "Deaktiviert"));
     }
 
     // Beschriftet einen Tasten-Button mit der aktuellen Belegung und richtet den Klick-Listener
