@@ -3,20 +3,34 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e98f8d04-21e9-4380-859b-9928024a3400" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilotDiffState.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/game.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/start.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/start.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/stylesheets/darkmode.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/stylesheets/darkmode.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/stylesheets/whitemode.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/stylesheets/whitemode.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/lucak/IdeaProjects/TetrisReloaded" value="3KieX8jvsr9sPJYAxDFeqmLaUWh" />
+    </persistenceIdMap>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -25,12 +39,12 @@
     &quot;assignee&quot;: &quot;arogantxr&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Clemens2007/Tetris.git&quot;,
-    &quot;accountId&quot;: &quot;b289e69a-5426-4883-a37c-62812410e2c6&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/arogantxr/TetrisReloaded.git",
+    "accountId": "f2af5136-b9e9-4fbc-805a-7cb9677acf8d"
   }
-}</component>
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -42,11 +56,85 @@
     <commands />
     <urls />
   </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.000527116760039" />
+      <entry key="MS500" value="1.2662408938842087" />
+      <entry key="S2" value="2.488542529156374" />
+      <entry key="S5" value="3.5800366473612772" />
+      <entry key="S10" value="4.243990909987334" />
+      <entry key="S30" value="7.451177376012405" />
+      <entry key="S60" value="13.479777215705278" />
+      <entry key="M2" value="22.152905633076475" />
+      <entry key="M5" value="35.86419861654873" />
+      <entry key="M10" value="46.521647706793736" />
+      <entry key="M15" value="51.81941709790037" />
+      <entry key="M30" value="58.488972060519906" />
+      <entry key="H1" value="62.47875848185277" />
+      <entry key="H2" value="64.66785931727762" />
+      <entry key="H4" value="65.81536818810197" />
+      <entry key="D1" value="66.79992328623571" />
+      <entry key="W1" value="66.97135220700144" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.901728832113537" />
+      <entry key="MS500" value="1.2406041267247105" />
+      <entry key="S2" value="2.476328857126758" />
+      <entry key="S5" value="3.573066686126038" />
+      <entry key="S10" value="4.239859762472423" />
+      <entry key="S30" value="7.448615994892787" />
+      <entry key="S60" value="13.47733264031301" />
+      <entry key="M2" value="22.150783654456745" />
+      <entry key="M5" value="35.862631498559466" />
+      <entry key="M10" value="46.52053257435713" />
+      <entry key="M15" value="51.81855828028021" />
+      <entry key="M30" value="58.48846854917357" />
+      <entry key="H1" value="62.47848429230404" />
+      <entry key="H2" value="64.66771603591752" />
+      <entry key="H4" value="65.81529492205861" />
+      <entry key="D1" value="66.79991084247902" />
+      <entry key="W1" value="66.97135042352834" />
+    </decayedShown>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1,
   &quot;fromUser&quot;: false
 }</component>
   <component name="ProjectId" id="3KP0sru4PHmrvU8DiMXgKAEn31K" />
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -54,12 +142,15 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Launcher.executor": "Run",
+    "Maven.javafx:run.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "Kohberger",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/paulp/HTL_STEYR_3AHITN/SEW/JAVA/TetrisReloaded",
     "node.js.detected.package.eslint": "true",
@@ -72,8 +163,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
+        <option value="bundled-jdk-30f59d01ecdd-0eb1cca9f3e3-intellij.indexing.shared.core-IU-263.6800.24" />
+        <option value="bundled-js-predefined-d6986cc7102b-1bd1d4df78b4-JavaScript-IU-263.6800.24" />
       </set>
     </attachedChunks>
   </component>

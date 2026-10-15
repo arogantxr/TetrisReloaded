@@ -41,7 +41,7 @@
             <VBox alignment="CENTER" maxWidth="390" spacing="16" styleClass="auth-card">
 
                 <!-- Titel -->
-                <Label styleClass="auth-title logo-title" text="TETRIS" />
+                <Label id="authTitle" styleClass="auth-title logo-title" text="TETRIS" />
                 <Label styleClass="muted-label" text="ENTER THE BLOCKS" />
 
                 <!-- Username -->

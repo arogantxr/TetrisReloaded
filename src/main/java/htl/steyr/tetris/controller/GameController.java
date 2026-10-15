@@ -103,11 +103,14 @@ public class GameController {
 
     // Erstellt einmalig das 20x10-Raster aus Rectangle-Objekten und fügt sie ins GridPane ein
     private void buildGrid() {
+        boolean darkMode = ViewSwitcher.isDarkMode();
+        Color cellColor = Color.web(darkMode ? "#0A1628" : "#D9DEE5");
+        Color gridColor = Color.web(darkMode ? "#17263C" : "#B8C2CC");
         for (int row = 0; row < Board.ROWS; row++) {
             for (int col = 0; col < Board.COLS; col++) {
                 Rectangle r = new Rectangle(CELL_SIZE, CELL_SIZE);
-                r.setFill(Color.web("#0A1628"));
-                r.setStroke(Color.web("#17263C"));
+                r.setFill(cellColor);
+                r.setStroke(gridColor);
                 r.setStrokeWidth(1);
                 cells[row][col] = r;
                 gameField.add(r, col, row);
@@ -277,11 +280,15 @@ public class GameController {
 
     // Zeichnet das gesamte Spielfeld neu: zuerst das gelockte Board, dann der fallende Stein darüber
     private void render() {
+        Color emptyCellColor = ViewSwitcher.isDarkMode()
+                ? Color.web("#0A1628")
+                : Color.web("#D9DEE5");
+
         // Hintergrund: alle bereits gelockten Blöcke aus dem Board-Array
         for (int row = 0; row < Board.ROWS; row++) {
             for (int col = 0; col < Board.COLS; col++) {
                 Color c = board.get(row, col);
-                cells[row][col].setFill(c != null ? c : Color.web("#0A1628"));
+                cells[row][col].setFill(c != null ? c : emptyCellColor);
             }
         }
 
