@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e98f8d04-21e9-4380-859b-9928024a3400" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilotDiffState.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/OptionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/OptionsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/user/UserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/user/UserData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/options.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/options.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +16,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -25,12 +29,12 @@
     &quot;assignee&quot;: &quot;arogantxr&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Clemens2007/Tetris.git&quot;,
-    &quot;accountId&quot;: &quot;b289e69a-5426-4883-a37c-62812410e2c6&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/arogantxr/TetrisReloaded.git",
+    "accountId": "0e12db5f-b251-434d-961c-a8ceb6cfb320"
   }
-}</component>
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -60,6 +64,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "fobermay",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/paulp/HTL_STEYR_3AHITN/SEW/JAVA/TetrisReloaded",
     "node.js.detected.package.eslint": "true",
@@ -72,8 +77,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
       </set>
     </attachedChunks>
   </component>
