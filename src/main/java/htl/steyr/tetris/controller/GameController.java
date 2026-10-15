@@ -35,6 +35,8 @@ public class GameController {
     @FXML
     private Label levelLabel;
     @FXML
+    private Label pauseLabel;
+    @FXML
     private Pane holdPane;        // Vorschau-Feld für den gehaltenen Stein
     @FXML
     private Pane nextPane;        // Vorschau-Feld für den nächsten Stein
@@ -58,6 +60,8 @@ public class GameController {
 
     private Timeline timeline;  // steuert das automatische Fallen des Steins
     private boolean paused = false;
+    private static final int MAX_PAUSES = 3;
+    private int pausesUsed = 0;
 
     private int score = 0;
     private int lines = 0;
@@ -374,7 +378,20 @@ public class GameController {
     // Pause-Button: stoppt/startet die Eingabeverarbeitung und das Fallen,
     // ändert das Symbol auf dem Button entsprechend
     public void onPauseButtonClicked(ActionEvent actionEvent) {
+        // Wenn das Spiel nicht pausiert ist und keine Pausen mehr übrig sind, passiert nichts
+        if (!paused && MAX_PAUSES - pausesUsed == 0) return;
+
+        // Pause-Status umschalten
         paused = !paused;
+
+        if (paused) {
+            pausesUsed++;
+            // Anzahl der verbleibenden Pausen anzeigen
+            pauseLabel.setText(String.valueOf(MAX_PAUSES - pausesUsed));
+        // Wenn keine Pausen mehr übrig sind, den Button deaktivieren
+        } else if (MAX_PAUSES - pausesUsed == 0) {
+            pauseButton.setDisable(true);
+        }
         pauseButton.setText(paused ? "▶" : "⏸");
         gameField.requestFocus(); // Fokus zurück aufs Spielfeld, damit Tastatureingaben weiter ankommen
     }
