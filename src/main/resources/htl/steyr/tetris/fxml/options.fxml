@@ -122,6 +122,8 @@
 
                                     <Label text="HARDDROP" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="8" />
                                     <Button fx:id="harddropButton" prefWidth="140" styleClass="key-button" text="SPACE" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <Label text="PAUSE" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                                    <Button fx:id="pauseKeyButton" prefWidth="140" styleClass="key-button" text="P" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                            <columnConstraints>
                               <ColumnConstraints />
                               <ColumnConstraints />
