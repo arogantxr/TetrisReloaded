@@ -207,10 +207,10 @@ public class OptionsController {
             updateHoldEnableButton();
 
             // Standard-Tastenbelegung wiederherstellen
-            ud.setSetting("left", KeyCode.S);
+            ud.setSetting("left", KeyCode.A);
             ud.setSetting("right", KeyCode.D);
-            ud.setSetting("rotate_left", KeyCode.Z);
-            ud.setSetting("rotate_right", KeyCode.X);
+            ud.setSetting("rotate_left", KeyCode.Q);
+            ud.setSetting("rotate_right", KeyCode.E);
             ud.setSetting("hold", KeyCode.C);
             ud.setSetting("softdrop", KeyCode.S);
             ud.setSetting("harddrop", KeyCode.SPACE);
@@ -218,10 +218,10 @@ public class OptionsController {
             ud.save();
 
             // Buttons in der UI ebenfalls aktualisieren
-            leftKeyButton.setText(KeyCode.S.getName());
+            leftKeyButton.setText(KeyCode.A.getName());
             rightKeyButton.setText(KeyCode.D.getName());
-            rotateLeftButton.setText(KeyCode.Z.getName());
-            rotateRightButton.setText(KeyCode.X.getName());
+            rotateLeftButton.setText(KeyCode.Q.getName());
+            rotateRightButton.setText(KeyCode.E.getName());
             holdButton.setText(KeyCode.C.getName());
             softdropButton.setText(KeyCode.S.getName());
             harddropButton.setText(KeyCode.SPACE.getName());
