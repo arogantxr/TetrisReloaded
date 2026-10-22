@@ -219,7 +219,6 @@ public class GameController {
 
         blockRow = 0;
         blockCol = Board.COLS / 2 - 2; // mittig oben starten
-        holdUsed = false;
 
         // Wenn der neue Stein gleich an seiner Startposition nicht platziert werden kann,
         // ist das Spielfeld voll -> Game Over
@@ -269,6 +268,7 @@ public class GameController {
     private void holdCurrent() {
         if (!ud.isHoldEnable() || level >= 2 || holdUsed) return;
         holdUsed = true;
+        lastMoveWasRotate = false;
 
         if (hold == null) {
             // noch nichts gehalten -> aktuellen Stein "parken" und neuen spawnen
@@ -281,6 +281,11 @@ public class GameController {
             hold = temp;
             blockRow = 0;
             blockCol = Board.COLS / 2 - 2;
+
+            if (!board.canPlace(current.getShape(), blockRow, blockCol)) {
+                gameOver();
+                return;
+            }
         }
 
         updateHoldPreview();
@@ -318,6 +323,7 @@ public class GameController {
         linesLabel.setText(String.format("%02d", lines));
 
         lastMoveWasRotate = false;
+        holdUsed = false;
         spawnPiece();
     }
 
