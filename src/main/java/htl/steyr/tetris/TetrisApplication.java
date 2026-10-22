@@ -8,7 +8,7 @@ public class TetrisApplication extends Application {
     @Override
     public void start(Stage stage) {
         stage.setTitle("Tetris");
-        stage.setResizable(false);
+        stage.setResizable(true);
         ViewSwitcher.setStage(stage);
         ViewSwitcher.switchTo("start.fxml");
     }
