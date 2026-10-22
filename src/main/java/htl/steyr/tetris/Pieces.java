@@ -2,6 +2,9 @@ package htl.steyr.tetris;
 
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 // Repräsentiert einen einzelnen Tetris-Stein (Tetromino).
@@ -40,9 +43,25 @@ public class    Pieces {
         this.size = size;
     }
 
-    // Erzeugt einen zufälligen neuen Stein aus den 7 möglichen Formen
+    // 7-Bag-Randomizer: Alle 7 Formen kommen gemischt in einen "Sack" und werden
+    // nacheinander gezogen. Erst wenn der Sack leer ist, wird neu gemischt.
+    // So kommt jeder Stein garantiert einmal pro 7 Steine (keine langen Durststrecken).
+    private static final List<Integer> bag = new ArrayList<>();
+
+    // Leert den Sack, damit ein neues Spiel mit frisch gemischtem Sack startet
+    public static void resetBag() {
+        bag.clear();
+    }
+
+    // Zieht den nächsten Stein aus dem Sack (füllt und mischt ihn neu, wenn er leer ist)
     public static Pieces random() {
-        int index = random.nextInt(SHAPES.length);
+        if (bag.isEmpty()) {
+            for (int i = 0; i < SHAPES.length; i++) {
+                bag.add(i);
+            }
+            Collections.shuffle(bag, random);
+        }
+        int index = bag.remove(0);
         int size = (index == 0 || index == 1) ? 4 : 3; // I und O nutzen das ganze 4x4-Raster
         return new Pieces(SHAPES[index], COLORS[index], index == T_INDEX, size);
     }
