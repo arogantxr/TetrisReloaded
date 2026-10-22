@@ -91,9 +91,9 @@
 
                             <VBox alignment="CENTER" spacing="10" styleClass="option-section">
 
-                                <Label styleClass="sectionLabel" text="HIGHSCORE" />
+                                <Label styleClass="sectionLabel" text="LEADERBOARD" />
 
-                                <Button fx:id="resetHighscoreButton" onAction="#resetHighscoreClicked" prefHeight="45" prefWidth="220" styleClass="secondary-button" text="Reset highscore" />
+                                <Button fx:id="resetHighscoreButton" onAction="#resetHighscoreClicked" prefHeight="45" prefWidth="220" styleClass="secondary-button" text="Reset leaderboard" />
                             </VBox>
 
                             <!-- KEYBINDS -->

@@ -1,5 +1,6 @@
 package htl.steyr.tetris.controller;
 
+import htl.steyr.tetris.highscore_management.HighscoreManager;
 import htl.steyr.tetris.user.UserData;
 import htl.steyr.tetris.user.UserSession;
 import htl.steyr.tetris.utility.ViewSwitcher;
@@ -115,16 +116,24 @@ public class OptionsController {
         htl.steyr.tetris.Music.getInstance().next();
     }
 
-    // Setzt den persönlichen Highscore in UserData zurück (nicht die globale Liste!)
+    // Setzt die globale Bestenliste nach Bestätigung zurück.
     public void resetHighscoreClicked(ActionEvent actionEvent) {
-        ud.setHighscore(0);
-        ud.save();
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Leaderboard zurücksetzen");
+        confirm.setHeaderText("Alle Einträge aus dem Leaderboard löschen?");
+        confirm.setContentText("Diese Änderung kann nicht rückgängig gemacht werden.");
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Highscore zurückgesetzt");
-        alert.setHeaderText(null);
-        alert.setContentText("Dein Highscore wurde zurückgesetzt!");
-        alert.showAndWait();
+        confirm.showAndWait().ifPresent(response -> {
+            if (response != ButtonType.OK) return;
+
+            HighscoreManager.clearData();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Leaderboard zurückgesetzt");
+            alert.setHeaderText(null);
+            alert.setContentText("Das Leaderboard wurde zurückgesetzt.");
+            alert.showAndWait();
+        });
     }
 
 
