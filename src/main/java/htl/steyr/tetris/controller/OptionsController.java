@@ -29,7 +29,7 @@ public class OptionsController {
     @FXML
     private Button clearDataButton;
     @FXML
-    private CheckBox showNextPieceCheckBox;
+    private Button showNextPieceButton;
     @FXML
     private Button holdEnableButton;
 
@@ -57,6 +57,7 @@ public class OptionsController {
 
     private UserData ud;
     private boolean holdEnabled;
+    private boolean showNextPieceEnabled;
 
     @FXML
     public void initialize() {
@@ -70,7 +71,8 @@ public class OptionsController {
         );
         soundSlider.setValue(ud.getVolumeSfx());
 
-        showNextPieceCheckBox.setSelected(ud.isShowNextPiece());
+        showNextPieceEnabled = ud.isShowNextPiece();
+        updateShowNextPieceButton();
         holdEnabled = ud.isHoldEnable();
         updateHoldEnableButton();
 
@@ -96,6 +98,10 @@ public class OptionsController {
             ud.setHoldEnable(holdEnabled);
             ud.save();
             updateHoldEnableButton();
+        });
+        showNextPieceButton.setOnAction(e -> {
+            showNextPieceEnabled = !showNextPieceEnabled;
+            updateShowNextPieceButton();
         });
         // Speichern erst erlauben, wenn wirklich jeder Taste eine Belegung zugewiesen ist
         saveButton.setDisable(!allKeysAssigned());
@@ -142,7 +148,7 @@ public class OptionsController {
         UserData ud = UserSession.getUserData();
         ud.setVolumeMusic((int) musicSlider.getValue());
         ud.setVolumeSfx((int) soundSlider.getValue());
-        ud.setShowNextPiece(showNextPieceCheckBox.isSelected());
+        ud.setShowNextPiece(showNextPieceEnabled);
         ud.setHoldEnable(holdEnabled);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -211,7 +217,8 @@ public class OptionsController {
             ud.setHoldEnable(true);
             musicSlider.setValue(50);
             soundSlider.setValue(50);
-            showNextPieceCheckBox.setSelected(true);
+            showNextPieceEnabled = true;
+            updateShowNextPieceButton();
             holdEnabled = true;
             updateHoldEnableButton();
 
@@ -240,6 +247,10 @@ public class OptionsController {
 
     private void updateHoldEnableButton() {
         holdEnableButton.setText("Hold-Funktion: " + (holdEnabled ? "Aktiviert" : "Deaktiviert"));
+    }
+
+    private void updateShowNextPieceButton() {
+        showNextPieceButton.setText("Show next piece: " + (showNextPieceEnabled ? "Aktiviert" : "Deaktiviert"));
     }
 
     // Beschriftet einen Tasten-Button mit der aktuellen Belegung und richtet den Klick-Listener
