@@ -21,7 +21,11 @@
                 <Label styleClass="subtitle-label" text="CLASSIC MODE" />
                 <!-- Nimmt den restlichen Platz ein; das Spielfeld skaliert sich darin (siehe GameController) -->
                 <StackPane fx:id="boardHolder" VBox.vgrow="ALWAYS" minWidth="0" minHeight="0" alignment="TOP_CENTER">
-                    <GridPane fx:id="gameField" focusTraversable="true" maxWidth="-Infinity" maxHeight="-Infinity" />
+                    <StackPane maxWidth="-Infinity" maxHeight="-Infinity">
+                        <GridPane fx:id="gameField" focusTraversable="true" maxWidth="-Infinity" maxHeight="-Infinity" />
+                        <!-- Liegt über dem Spielfeld und zeigt den Countdown bis zum Start. -->
+                        <Label fx:id="countdownLabel" mouseTransparent="true" styleClass="countdown-label" text="3" />
+                    </StackPane>
                 </StackPane>
             </VBox>
 

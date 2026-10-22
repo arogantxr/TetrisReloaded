@@ -323,6 +323,15 @@
     -fx-font-weight: bold;
 }
 
+.countdown-label {
+    -fx-text-fill: #35f5d0;
+    -fx-font-size: 64;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(10, 22, 40, 0.75);
+    -fx-background-radius: 12;
+    -fx-padding: 8 24;
+}
+
 .optionsTitle {
     -fx-text-fill: #cd32ca;
     -fx-font-size: 32;

@@ -1,5 +1,6 @@
 package htl.steyr.tetris.controller;
 
+import htl.steyr.tetris.highscore_management.HighscoreManager;
 import htl.steyr.tetris.user.UserData;
 import htl.steyr.tetris.user.UserSession;
 import htl.steyr.tetris.utility.ViewSwitcher;
@@ -29,6 +30,8 @@ public class OptionsController {
     private Button clearDataButton;
     @FXML
     private CheckBox showNextPieceCheckBox;
+    @FXML
+    private Button holdEnableButton;
 
     // Buttons für die Tastenbelegung der einzelnen Spielaktionen
     @FXML
@@ -53,6 +56,7 @@ public class OptionsController {
     private Button currentKeyButton; // merkt sich, welcher Button gerade auf Tasteneingabe wartet
 
     private UserData ud;
+    private boolean holdEnabled;
 
     @FXML
     public void initialize() {
@@ -67,6 +71,8 @@ public class OptionsController {
         soundSlider.setValue(ud.getVolumeSfx());
 
         showNextPieceCheckBox.setSelected(ud.isShowNextPiece());
+        holdEnabled = ud.isHoldEnable();
+        updateHoldEnableButton();
 
         // Für jede Spielaktion den passenden Button mit der aktuellen Taste beschriften
         // und Klick-Listener zum Neubelegen einrichten
@@ -85,6 +91,12 @@ public class OptionsController {
         saveButton.setOnAction(e -> saveSettings());
         closeButton.setOnAction(e -> returnToMenu());
         clearDataButton.setOnAction(e -> clearAllData());
+        holdEnableButton.setOnAction(e -> {
+            holdEnabled = !holdEnabled;
+            ud.setHoldEnable(holdEnabled);
+            ud.save();
+            updateHoldEnableButton();
+        });
         // Speichern erst erlauben, wenn wirklich jeder Taste eine Belegung zugewiesen ist
         saveButton.setDisable(!allKeysAssigned());
 
@@ -104,16 +116,24 @@ public class OptionsController {
         htl.steyr.tetris.Music.getInstance().next();
     }
 
-    // Setzt den persönlichen Highscore in UserData zurück (nicht die globale Liste!)
+    // Setzt die globale Bestenliste nach Bestätigung zurück.
     public void resetHighscoreClicked(ActionEvent actionEvent) {
-        ud.setHighscore(0);
-        ud.save();
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Leaderboard zurücksetzen");
+        confirm.setHeaderText("Alle Einträge aus dem Leaderboard löschen?");
+        confirm.setContentText("Diese Änderung kann nicht rückgängig gemacht werden.");
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Highscore zurückgesetzt");
-        alert.setHeaderText(null);
-        alert.setContentText("Dein Highscore wurde zurückgesetzt!");
-        alert.showAndWait();
+        confirm.showAndWait().ifPresent(response -> {
+            if (response != ButtonType.OK) return;
+
+            HighscoreManager.clearData();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Leaderboard zurückgesetzt");
+            alert.setHeaderText(null);
+            alert.setContentText("Das Leaderboard wurde zurückgesetzt.");
+            alert.showAndWait();
+        });
     }
 
 
@@ -123,6 +143,7 @@ public class OptionsController {
         ud.setVolumeMusic((int) musicSlider.getValue());
         ud.setVolumeSfx((int) soundSlider.getValue());
         ud.setShowNextPiece(showNextPieceCheckBox.isSelected());
+        ud.setHoldEnable(holdEnabled);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Gespeichert");
@@ -187,15 +208,18 @@ public class OptionsController {
             ud.setVolumeMusic(50);
             ud.setVolumeSfx(50);
             ud.setShowNextPiece(true);
+            ud.setHoldEnable(true);
             musicSlider.setValue(50);
             soundSlider.setValue(50);
             showNextPieceCheckBox.setSelected(true);
+            holdEnabled = true;
+            updateHoldEnableButton();
 
             // Standard-Tastenbelegung wiederherstellen
-            ud.setSetting("left", KeyCode.S);
+            ud.setSetting("left", KeyCode.A);
             ud.setSetting("right", KeyCode.D);
-            ud.setSetting("rotate_left", KeyCode.Z);
-            ud.setSetting("rotate_right", KeyCode.X);
+            ud.setSetting("rotate_left", KeyCode.Q);
+            ud.setSetting("rotate_right", KeyCode.E);
             ud.setSetting("hold", KeyCode.C);
             ud.setSetting("softdrop", KeyCode.S);
             ud.setSetting("harddrop", KeyCode.SPACE);
@@ -203,15 +227,19 @@ public class OptionsController {
             ud.save();
 
             // Buttons in der UI ebenfalls aktualisieren
-            leftKeyButton.setText(KeyCode.S.getName());
+            leftKeyButton.setText(KeyCode.A.getName());
             rightKeyButton.setText(KeyCode.D.getName());
-            rotateLeftButton.setText(KeyCode.Z.getName());
-            rotateRightButton.setText(KeyCode.X.getName());
+            rotateLeftButton.setText(KeyCode.Q.getName());
+            rotateRightButton.setText(KeyCode.E.getName());
             holdButton.setText(KeyCode.C.getName());
             softdropButton.setText(KeyCode.S.getName());
             harddropButton.setText(KeyCode.SPACE.getName());
             pauseKeyButton.setText(KeyCode.P.getName());
         });
+    }
+
+    private void updateHoldEnableButton() {
+        holdEnableButton.setText("Hold-Funktion: " + (holdEnabled ? "Aktiviert" : "Deaktiviert"));
     }
 
     // Beschriftet einen Tasten-Button mit der aktuellen Belegung und richtet den Klick-Listener
