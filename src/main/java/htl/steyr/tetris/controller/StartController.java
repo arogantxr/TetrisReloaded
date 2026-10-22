@@ -77,10 +77,10 @@ public class StartController {
 
     public void onMethodButtonClicked(MouseEvent mouseEvent) {
         if (isRegister) {
-            methodLabel.setText("Anmelden");
+            methodLabel.setText("Registrieren");
             isRegister = false;
         } else {
-            methodLabel.setText("Registrieren");
+            methodLabel.setText("Anmelden");
             isRegister = true;
         }
     }
