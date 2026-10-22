@@ -63,8 +63,10 @@ public class GameController {
 
     private Timeline timeline;  // steuert das automatische Fallen des Steins
     private Timeline countdownTimeline;
+    private Timeline playedTimeTimeline;
     private boolean gameStarted = false;
     private boolean paused = false;
+    private int secondsPlayed = 0;
     private static final int MAX_PAUSES = 3;
     private int pausesUsed = 0;
 
@@ -156,12 +158,22 @@ public class GameController {
                 countdownLabel.setVisible(false);
                 gameStarted = true;
                 startTimeline(600);
+                startElapsedTimeTimer();
             } else {
                 countdownLabel.setText(String.valueOf(secondsLeft[0]));
             }
         }));
         countdownTimeline.setCycleCount(3);
         countdownTimeline.play();
+    }
+
+    private void startElapsedTimeTimer() {
+        playedTimeTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            secondsPlayed++;
+            System.out.println("Elapsed time: " + secondsPlayed + " seconds");
+        }));
+        playedTimeTimeline.setCycleCount(Timeline.INDEFINITE);
+        playedTimeTimeline.play();
     }
 
     // Zentrale Tastatur-Eingabeverarbeitung. Liest die individuellen Tastenbelegungen
@@ -488,6 +500,7 @@ public class GameController {
     // Speichert den Score im UserData und wechselt zum Gameover-Screen.
     private void gameOver() {
         timeline.stop();
+        if (playedTimeTimeline != null) playedTimeTimeline.stop();
         ud.setScore(score);
         ud.save();
         ViewSwitcher.switchTo("gameover.fxml");
@@ -497,6 +510,7 @@ public class GameController {
     public void onCloseButtonClicked(ActionEvent actionEvent) {
         if (countdownTimeline != null) countdownTimeline.stop();
         if (timeline != null) timeline.stop();
+        if (playedTimeTimeline != null) playedTimeTimeline.stop();
         ud.save();
         ViewSwitcher.switchTo("menu.fxml");
     }
@@ -515,11 +529,15 @@ public class GameController {
 
         if (paused) {
             pausesUsed++;
+            if (playedTimeTimeline != null) playedTimeTimeline.pause();
             // Anzahl der verbleibenden Pausen anzeigen
             pauseLabel.setText(String.valueOf(MAX_PAUSES - pausesUsed));
         // Wenn keine Pausen mehr übrig sind, den Button deaktivieren
-        } else if (MAX_PAUSES - pausesUsed == 0) {
-            pauseButton.setDisable(true);
+        } else {
+            if (playedTimeTimeline != null) playedTimeTimeline.play();
+            if (MAX_PAUSES - pausesUsed == 0) {
+                pauseButton.setDisable(true);
+            }
         }
         pauseButton.setText(paused ? "▶" : "⏸");
         gameField.requestFocus(); // Fokus zurück aufs Spielfeld, damit Tastatureingaben weiter ankommen
