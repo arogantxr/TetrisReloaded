@@ -84,6 +84,7 @@ public class GameController {
         ud = UserSession.getUserData();
         buildGrid(); // visuelles Raster aus Rectangles erzeugen
 
+        Pieces.resetBag();      // neues Spiel -> frisch gemischter 7er-Sack
         next = Pieces.random(); // ersten "next"-Stein vorbereiten
         spawnPiece();           // den ersten echten Stein spawnen
 
