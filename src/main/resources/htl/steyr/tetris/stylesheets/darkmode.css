@@ -150,10 +150,18 @@
 }
 
 .logo-title {
-    -fx-text-fill: #cd32ca;
-    -fx-font-size: 54;
+    -fx-text-fill: #35f5d0;
+    -fx-font-size: 58;
     -fx-font-weight: 900;
-    -fx-effect: dropshadow(gaussian, rgba(205, 50, 202, 0.45), 12, 0.3, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(53, 245, 208, 0.8), 18, 0.45, 0, 3);
+}
+
+.auth-title.logo-title {
+    -fx-text-fill: #35f5d0;
+}
+
+#authTitle {
+    -fx-text-fill: #35f5d0;
 }
 
 .field-label {

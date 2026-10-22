@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e98f8d04-21e9-4380-859b-9928024a3400" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/OptionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/OptionsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/user/UserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/user/UserData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/options.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/options.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilotDiffState.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,10 +30,10 @@
     &quot;assignee&quot;: &quot;arogantxr&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/arogantxr/TetrisReloaded.git",
-    "accountId": "0e12db5f-b251-434d-961c-a8ceb6cfb320"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Clemens2007/Tetris.git&quot;,
+    &quot;accountId&quot;: &quot;b289e69a-5426-4883-a37c-62812410e2c6&quot;
   }
 }]]></component>
   <component name="MavenImportPreferences">
@@ -51,6 +52,9 @@
   &quot;fromUser&quot;: false
 }</component>
   <component name="ProjectId" id="3KP0sru4PHmrvU8DiMXgKAEn31K" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -63,8 +67,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "fobermay",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/paulp/HTL_STEYR_3AHITN/SEW/JAVA/TetrisReloaded",
     "node.js.detected.package.eslint": "true",
@@ -74,6 +78,26 @@
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
+  <component name="RunManager" selected="Application.Launcher">
+    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="htl.steyr.tetris.Launcher" />
+      <module name="Tetris" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="htl.steyr.tetris.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Launcher" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

@@ -37,6 +37,8 @@ public class GameController {
     @FXML
     private Label levelLabel;
     @FXML
+    private Label pauseLabel;
+    @FXML
     private Pane holdPane;        // Vorschau-Feld für den gehaltenen Stein
     @FXML
     private Pane nextPane;        // Vorschau-Feld für den nächsten Stein
@@ -65,6 +67,8 @@ public class GameController {
     private double tickMillis;  // aktuelles Fall-Intervall
     private long lastTickNanos; // Zeitpunkt des letzten echten Ticks
     private boolean paused = false;
+    private static final int MAX_PAUSES = 3;
+    private int pausesUsed = 0;
 
     private int score = 0;
     private int lines = 0;
@@ -117,11 +121,14 @@ public class GameController {
 
     // Erstellt einmalig das 20x10-Raster aus Rectangle-Objekten und fügt sie ins GridPane ein
     private void buildGrid() {
+        boolean darkMode = ViewSwitcher.isDarkMode();
+        Color cellColor = Color.web(darkMode ? "#0A1628" : "#D9DEE5");
+        Color gridColor = Color.web(darkMode ? "#17263C" : "#B8C2CC");
         for (int row = 0; row < Board.ROWS; row++) {
             for (int col = 0; col < Board.COLS; col++) {
                 Rectangle r = new Rectangle(cellSize, cellSize);
-                r.setFill(Color.web("#0A1628"));
-                r.setStroke(Color.web("#17263C"));
+                r.setFill(cellColor);
+                r.setStroke(gridColor);
                 r.setStrokeWidth(1);
                 cells[row][col] = r;
                 gameField.add(r, col, row);
@@ -394,11 +401,15 @@ public class GameController {
 
     // Zeichnet das gesamte Spielfeld neu: zuerst das gelockte Board, dann der fallende Stein darüber
     private void render() {
+        Color emptyCellColor = ViewSwitcher.isDarkMode()
+                ? Color.web("#0A1628")
+                : Color.web("#D9DEE5");
+
         // Hintergrund: alle bereits gelockten Blöcke aus dem Board-Array
         for (int row = 0; row < Board.ROWS; row++) {
             for (int col = 0; col < Board.COLS; col++) {
                 Color c = board.get(row, col);
-                cells[row][col].setFill(c != null ? c : Color.web("#0A1628"));
+                cells[row][col].setFill(c != null ? c : emptyCellColor);
             }
         }
 
@@ -492,7 +503,20 @@ public class GameController {
     // Pause-Button: stoppt/startet die Eingabeverarbeitung und das Fallen,
     // ändert das Symbol auf dem Button entsprechend
     public void onPauseButtonClicked(ActionEvent actionEvent) {
+        // Wenn das Spiel nicht pausiert ist und keine Pausen mehr übrig sind, passiert nichts
+        if (!paused && MAX_PAUSES - pausesUsed == 0) return;
+
+        // Pause-Status umschalten
         paused = !paused;
+
+        if (paused) {
+            pausesUsed++;
+            // Anzahl der verbleibenden Pausen anzeigen
+            pauseLabel.setText(String.valueOf(MAX_PAUSES - pausesUsed));
+        // Wenn keine Pausen mehr übrig sind, den Button deaktivieren
+        } else if (MAX_PAUSES - pausesUsed == 0) {
+            pauseButton.setDisable(true);
+        }
         pauseButton.setText(paused ? "▶" : "⏸");
         gameField.requestFocus(); // Fokus zurück aufs Spielfeld, damit Tastatureingaben weiter ankommen
     }
