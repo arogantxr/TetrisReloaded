@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -41,8 +42,11 @@ public class GameController {
     private Pane nextPane;        // Vorschau-Feld für den nächsten Stein
     @FXML
     private Button pauseButton;
+    @FXML
+    private StackPane boardHolder; // freier Platz, in den das Spielfeld hineinskaliert wird
 
-    private static final int CELL_SIZE = 25; // Pixelgröße einer einzelnen Spielfeldzelle
+    private static final double MIN_CELL_SIZE = 12; // kleinste erlaubte Zellgröße
+    private double cellSize = 25; // Pixelgröße einer Zelle, passt sich an die Fenstergröße an
 
     // Visuelle Darstellung des Spielfelds: ein Rectangle pro Zelle, wird in render() neu eingefärbt
     private final Rectangle[][] cells = new Rectangle[Board.ROWS][Board.COLS];
@@ -58,6 +62,8 @@ public class GameController {
     private int blockRow, blockCol; // Position der oberen linken Ecke des 4x4-Rasters von "current"
 
     private Timeline timeline;  // steuert das automatische Fallen des Steins
+    private double tickMillis;  // aktuelles Fall-Intervall
+    private long lastTickNanos; // Zeitpunkt des letzten echten Ticks
     private boolean paused = false;
 
     private int score = 0;
@@ -75,6 +81,10 @@ public class GameController {
     public void initialize() {
         ud = UserSession.getUserData();
         buildGrid(); // visuelles Raster aus Rectangles erzeugen
+
+        // Spielfeld mit dem Fenster mitwachsen/-schrumpfen lassen
+        boardHolder.widthProperty().addListener((obs, oldVal, newVal) -> resizeBoard());
+        boardHolder.heightProperty().addListener((obs, oldVal, newVal) -> resizeBoard());
 
         next = Pieces.random(); // ersten "next"-Stein vorbereiten
         spawnPiece();           // den ersten echten Stein spawnen
@@ -109,7 +119,7 @@ public class GameController {
     private void buildGrid() {
         for (int row = 0; row < Board.ROWS; row++) {
             for (int col = 0; col < Board.COLS; col++) {
-                Rectangle r = new Rectangle(CELL_SIZE, CELL_SIZE);
+                Rectangle r = new Rectangle(cellSize, cellSize);
                 r.setFill(Color.web("#0A1628"));
                 r.setStroke(Color.web("#17263C"));
                 r.setStrokeWidth(1);
@@ -119,10 +129,32 @@ public class GameController {
         }
     }
 
+    // Berechnet die Zellgröße so, dass das ganze Spielfeld (10x20) in den verfügbaren
+    // Platz passt, und passt alle Zellen daran an. Wird bei jeder Größenänderung aufgerufen.
+    private void resizeBoard() {
+        double w = boardHolder.getWidth();
+        double h = boardHolder.getHeight();
+        if (w <= 0 || h <= 0) return;
+
+        // -1 wegen der Zellrahmen (Stroke ragt etwas über die Zelle hinaus)
+        double size = Math.floor(Math.min(w / Board.COLS, h / Board.ROWS)) - 1;
+        size = Math.max(size, MIN_CELL_SIZE);
+        if (size == cellSize) return;
+
+        cellSize = size;
+        for (Rectangle[] row : cells) {
+            for (Rectangle r : row) {
+                r.setWidth(cellSize);
+                r.setHeight(cellSize);
+            }
+        }
+    }
+
     // (Neu)Startet die Fall-Timeline mit einer bestimmten Geschwindigkeit (in Millisekunden pro Reihe).
     // Wird bei Levelaufstieg aufgerufen, um das Spiel schneller zu machen.
     private void startTimeline(double millis) {
         if (timeline != null) timeline.stop();
+        tickMillis = millis;
         timeline = new Timeline(new KeyFrame(Duration.millis(millis), e -> tick()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
@@ -167,6 +199,14 @@ public class GameController {
     // Wird von der Timeline regelmäßig aufgerufen (automatisches Fallen)
     private void tick() {
         if (paused) return;
+
+        // Hängt das Fenster kurz (z.B. beim Größe ändern unter Windows), holt die Timeline
+        // danach alle verpassten Ticks auf einmal nach -> Stein würde durchrauschen.
+        // Deshalb Ticks ignorieren, die viel zu kurz nach dem letzten kommen.
+        long now = System.nanoTime();
+        if ((now - lastTickNanos) / 1_000_000.0 < tickMillis / 2) return;
+        lastTickNanos = now;
+
         if (!move(1, 0)) lockPiece(); // kann nicht weiter fallen -> locken
         render();
     }
@@ -300,7 +340,7 @@ public class GameController {
     private void playLineClearEffect(java.util.List<Integer> clearedRows) {
         for (int row : clearedRows) {
             for (int col = 0; col < Board.COLS; col++) {
-                Rectangle flash = new Rectangle(CELL_SIZE, CELL_SIZE, Color.web("#63E8FF", 0.72));
+                Rectangle flash = new Rectangle(cellSize, cellSize,Color.web("#63E8FF", 0.72));
                 gameField.add(flash, col, row);
                 FadeTransition fade = new FadeTransition(Duration.millis(260), flash);
                 fade.setToValue(0);

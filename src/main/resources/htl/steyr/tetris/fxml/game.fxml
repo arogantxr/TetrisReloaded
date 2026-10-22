@@ -14,14 +14,18 @@
 
     <!-- Hauptbereich -->
     <center>
-        <StackPane styleClass="game-content">
-            <VBox alignment="TOP_CENTER" spacing="14" styleClass="board-column" translateX="-105.0">
+        <HBox alignment="CENTER" spacing="30" styleClass="game-content">
+            <padding><Insets top="20" right="20" bottom="20" left="0" /></padding>
+            <VBox HBox.hgrow="ALWAYS" alignment="TOP_CENTER" spacing="14" minWidth="0" styleClass="board-column">
                 <Label styleClass="title-label" text="TETRIS" />
                 <Label styleClass="subtitle-label" text="CLASSIC MODE" />
-                <GridPane fx:id="gameField" focusTraversable="true" prefWidth="250.0" prefHeight="500.0" minWidth="250.0" minHeight="500.0" maxWidth="250.0" maxHeight="500.0" />
+                <!-- Nimmt den restlichen Platz ein; das Spielfeld skaliert sich darin (siehe GameController) -->
+                <StackPane fx:id="boardHolder" VBox.vgrow="ALWAYS" minWidth="0" minHeight="0" alignment="TOP_CENTER">
+                    <GridPane fx:id="gameField" focusTraversable="true" maxWidth="-Infinity" maxHeight="-Infinity" />
+                </StackPane>
             </VBox>
 
-            <VBox StackPane.alignment="CENTER_RIGHT" alignment="TOP_LEFT" prefWidth="210" minWidth="210" maxWidth="210" spacing="14" styleClass="info-panel">
+            <VBox alignment="TOP_LEFT" prefWidth="210" minWidth="210" maxWidth="210" spacing="14" styleClass="info-panel">
                 <HBox alignment="CENTER_LEFT" spacing="10">
                     <Label styleClass="sidebar-caption" text="GAME STATUS" />
                     <Pane HBox.hgrow="ALWAYS" />
@@ -60,7 +64,7 @@
                     <Button focusTraversable="false" onAction="#onCloseButtonClicked" prefWidth="82" styleClass="exit-button" text="EXIT" />
                 </HBox>
             </VBox>
-        </StackPane>
+        </HBox>
     </center>
 
 </BorderPane>

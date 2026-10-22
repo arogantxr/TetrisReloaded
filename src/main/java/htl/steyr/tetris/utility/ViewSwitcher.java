@@ -13,6 +13,12 @@ public class ViewSwitcher {
 
     private static Stage stage; // die eine Stage der gesamten Anwendung
 
+    // Startgröße des Fensters und kleinste erlaubte Größe beim Verkleinern
+    private static final double DEFAULT_WIDTH = 900;
+    private static final double DEFAULT_HEIGHT = 700;
+    private static final double MIN_WIDTH = 700;
+    private static final double MIN_HEIGHT = 550;
+
     // Dark/Light Mode speichern
     private static boolean darkMode = true;
 
@@ -44,7 +50,11 @@ public class ViewSwitcher {
             String fxmlFilePath = "/htl/steyr/tetris/fxml/" + fxml;
             Parent root = FXMLLoader.load(Objects.requireNonNull(ViewSwitcher.class.getResource(fxmlFilePath)));
 
-            Scene scene = new Scene(root);
+            // Beim ersten Screen Standardgröße, danach die aktuelle (evtl. vom User geänderte) Größe übernehmen
+            Scene oldScene = stage.getScene();
+            Scene scene = (oldScene == null)
+                    ? new Scene(root, DEFAULT_WIDTH, DEFAULT_HEIGHT)
+                    : new Scene(root, oldScene.getWidth(), oldScene.getHeight());
 
             // Stylesheet setzen (Dark- oder Lightmode), passend zum aktuellen Zustand
             scene.getStylesheets().clear();
@@ -59,15 +69,16 @@ public class ViewSwitcher {
                 );
             }
 
-            double width = 900;
-            double height = 700;
-
             stage.setScene(scene);
-            stage.setWidth(width);
-            stage.setHeight(height);
-            stage.setResizable(false);
-            stage.show();
-            stage.centerOnScreen();
+            stage.setResizable(true);
+            stage.setMinWidth(MIN_WIDTH);
+            stage.setMinHeight(MIN_HEIGHT);
+
+            // Nur beim allerersten Anzeigen zentrieren, sonst springt das Fenster bei jedem Wechsel
+            if (oldScene == null) {
+                stage.show();
+                stage.centerOnScreen();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
