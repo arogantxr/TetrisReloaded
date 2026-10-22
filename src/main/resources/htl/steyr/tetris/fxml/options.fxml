@@ -27,7 +27,7 @@
                 <!-- Titel -->
                 <HBox alignment="CENTER_RIGHT" spacing="20">
 
-                    <Label text="OPTIONS" styleClass="optionsTitle"/>
+                    <Label styleClass="optionsTitle" text="OPTIONS" />
 
                     <Region HBox.hgrow="ALWAYS" />
 
@@ -44,11 +44,11 @@
                             <!-- AUDIO -->
                             <VBox alignment="CENTER" spacing="10" styleClass="option-section">
 
-                                <Label text="AUDIO" styleClass="sectionLabel"/>
+                                <Label styleClass="sectionLabel" text="AUDIO" />
 
                                 <HBox alignment="CENTER" spacing="10">
 
-                                    <Label text="Music" styleClass="option-label" />
+                                    <Label styleClass="option-label" text="Music" />
                                     <Slider fx:id="musicSlider" prefWidth="250" />
                                 </HBox>
 
@@ -57,13 +57,13 @@
 
                                 <HBox alignment="CENTER" spacing="10">
 
-                                    <Label text="Sound" styleClass="option-label" />
+                                    <Label styleClass="option-label" text="Sound" />
                                     <Slider fx:id="soundSlider" prefWidth="250" />
                                 </HBox>
                             </VBox>
                      <VBox alignment="CENTER" prefHeight="72.0" prefWidth="484.0" styleClass="option-section">
                         <children>
-                           <Label alignment="CENTER" contentDisplay="CENTER" text="APPEARANCE" styleClass="sectionLabel"/>
+                           <Label alignment="CENTER" contentDisplay="CENTER" styleClass="sectionLabel" text="APPEARANCE" />
                            <Button fx:id="white_darkmode_button" prefHeight="40" prefWidth="220" styleClass="theme-button" text="TOGGLE THEME" />
                         </children>
                      </VBox>
@@ -84,14 +84,14 @@
                                   <!-- DATA -->
                             <VBox alignment="CENTER" spacing="10" styleClass="option-section">
 
-                                      <Label text="DATA" styleClass="sectionLabel"/>
+                                      <Label styleClass="sectionLabel" text="DATA" />
 
                                       <Button fx:id="clearDataButton" prefHeight="45" prefWidth="220" styleClass="secondary-button" text="Clear all Data" />
                             </VBox>
 
                             <VBox alignment="CENTER" spacing="10" styleClass="option-section">
 
-                                <Label text="HIGHSCORE" styleClass="sectionLabel"/>
+                                <Label styleClass="sectionLabel" text="HIGHSCORE" />
 
                                 <Button fx:id="resetHighscoreButton" onAction="#resetHighscoreClicked" prefHeight="45" prefWidth="220" styleClass="secondary-button" text="Reset highscore" />
                             </VBox>
@@ -99,37 +99,38 @@
                             <!-- KEYBINDS -->
                             <VBox alignment="CENTER" spacing="15" styleClass="option-section">
 
-                                <Label text="KEYBINDS" styleClass="sectionLabel"/>
+                                <Label styleClass="sectionLabel" text="KEYBINDS" />
 
                                 <GridPane alignment="CENTER" hgap="15" vgap="12">
 
-                                    <Label text="LEFT" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label styleClass="option-label" text="LEFT" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                                     <Button fx:id="leftKeyButton" prefWidth="140" styleClass="key-button" text="A" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                                    <Label text="RIGHT" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Label styleClass="option-label" text="RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                                     <Button fx:id="rightKeyButton" prefWidth="140" styleClass="key-button" text="D" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                                    <Label text="ROTATE LEFT" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                    <Label styleClass="option-label" text="ROTATE LEFT" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                                     <Button fx:id="rotateLeftButton" prefWidth="140" styleClass="key-button" text="Q" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                                    <Label text="ROTATE RIGHT" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                    <Label styleClass="option-label" text="ROTATE RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                                     <Button fx:id="rotateRightButton" prefWidth="140" styleClass="key-button" text="E" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-                                    <Label text="HOLD" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                                    <Button fx:id="holdButton" prefWidth="140" styleClass="key-button" text="SHIFT" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label styleClass="option-label" text="HOLD" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                                    <Button fx:id="holdButton" prefWidth="140" styleClass="key-button" text="C" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-                                    <Label text="SOFTDROP" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                                    <Label styleClass="option-label" text="SOFTDROP" GridPane.columnIndex="0" GridPane.rowIndex="7" />
                                     <Button fx:id="softdropButton" prefWidth="140" styleClass="key-button" text="S" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-                                    <Label text="HARDDROP" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                                    <Label styleClass="option-label" text="HARDDROP" GridPane.columnIndex="0" GridPane.rowIndex="8" />
                                     <Button fx:id="harddropButton" prefWidth="140" styleClass="key-button" text="SPACE" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                    <Label text="PAUSE" styleClass="option-label" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                                    <Label styleClass="option-label" text="PAUSE" GridPane.columnIndex="0" GridPane.rowIndex="9" />
                                     <Button fx:id="pauseKeyButton" prefWidth="140" styleClass="key-button" text="P" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                            <columnConstraints>
                               <ColumnConstraints />
                               <ColumnConstraints />
                            </columnConstraints>
                            <rowConstraints>
+                              <RowConstraints />
                               <RowConstraints />
                               <RowConstraints />
                               <RowConstraints />
