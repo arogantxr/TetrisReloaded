@@ -446,8 +446,27 @@ public class GameController {
             }
         }
 
-        // Vordergrund: der aktuell fallende Stein wird über das Board gelegt
         int[][] shape = current.getShape();
+        int ghostRow = blockRow;
+        while (board.canPlace(shape, ghostRow + 1, blockCol)) {
+            ghostRow++;
+        }
+
+        // Der transparente Schatten zeigt die Landeposition des aktuellen Steins.
+        Color ghostColor = current.getColor().deriveColor(0, 1, 1, 0.28);
+        for (int r = 0; r < 4; r++) {
+            for (int c = 0; c < 4; c++) {
+                if (shape[r][c] == 1) {
+                    int boardRow = ghostRow + r;
+                    int boardCol = blockCol + c;
+                    if (boardRow >= 0 && boardRow < Board.ROWS && boardCol >= 0 && boardCol < Board.COLS) {
+                        cells[boardRow][boardCol].setFill(ghostColor);
+                    }
+                }
+            }
+        }
+
+        // Vordergrund: der aktuell fallende Stein wird über Board und Schatten gelegt
         for (int r = 0; r < 4; r++) {
             for (int c = 0; c < 4; c++) {
                 if (shape[r][c] == 1) {
