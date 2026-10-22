@@ -7,6 +7,7 @@ import htl.steyr.tetris.user.UserData;
 import htl.steyr.tetris.user.UserSession;
 import htl.steyr.tetris.utility.ViewSwitcher;
 import javafx.animation.KeyFrame;
+import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -254,6 +255,7 @@ public class GameController {
 
         board.lock(current.getShape(), blockRow, blockCol, current.getColor());
 
+        java.util.List<Integer> clearedRows = getFullRows();
         int cleared = board.clearFullLines();
 
         int gained = 0;
@@ -269,6 +271,7 @@ public class GameController {
 
         if (cleared > 0) {
             lines += cleared;
+            playLineClearEffect(clearedRows);
         }
 
         updateProgression();
@@ -276,6 +279,35 @@ public class GameController {
 
         lastMoveWasRotate = false;
         spawnPiece();
+    }
+
+    private java.util.List<Integer> getFullRows() {
+        java.util.List<Integer> fullRows = new java.util.ArrayList<>();
+        for (int row = 0; row < Board.ROWS; row++) {
+            boolean full = true;
+            for (int col = 0; col < Board.COLS; col++) {
+                if (board.get(row, col) == null) {
+                    full = false;
+                    break;
+                }
+            }
+            if (full) fullRows.add(row);
+        }
+        return fullRows;
+    }
+
+    // Ein kurzer cyanfarbener Sweep markiert exakt die Reihen, die gelöscht wurden.
+    private void playLineClearEffect(java.util.List<Integer> clearedRows) {
+        for (int row : clearedRows) {
+            for (int col = 0; col < Board.COLS; col++) {
+                Rectangle flash = new Rectangle(CELL_SIZE, CELL_SIZE, Color.web("#63E8FF", 0.72));
+                gameField.add(flash, col, row);
+                FadeTransition fade = new FadeTransition(Duration.millis(260), flash);
+                fade.setToValue(0);
+                fade.setOnFinished(event -> gameField.getChildren().remove(flash));
+                fade.play();
+            }
+        }
     }
 
     // Level richten sich nach dem Punktestand: Ab 1.000 Punkten Level 2,
