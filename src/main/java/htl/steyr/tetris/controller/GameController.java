@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -29,6 +30,8 @@ import htl.steyr.tetris.SoundEffects;
 // Enthält selbst keine Spielregeln mehr, sondern delegiert an die ausgelagerten Klassen.
 public class GameController {
 
+    @FXML
+    private TextField elapsedTimeField;
     // FXML-Elemente, die per fx:id aus game.fxml gebunden werden
     @FXML
     private GridPane gameField;   // das Spielfeld-Raster
@@ -71,8 +74,10 @@ public class GameController {
     private double tickMillis;  // aktuelles Fall-Intervall
     private long lastTickNanos; // Zeitpunkt des letzten echten Ticks
     private Timeline countdownTimeline;
+    private Timeline playedTimeTimeline;
     private boolean gameStarted = false;
     private boolean paused = false;
+    private int secondsPlayed = 0;
     private static final int MAX_PAUSES = 3;
     private int pausesUsed = 0;
 
@@ -190,12 +195,23 @@ public class GameController {
                 countdownLabel.setVisible(false);
                 gameStarted = true;
                 startTimeline(600);
+                startElapsedTimeTimer();
             } else {
                 countdownLabel.setText(String.valueOf(secondsLeft[0]));
             }
         }));
         countdownTimeline.setCycleCount(3);
         countdownTimeline.play();
+    }
+
+    private void startElapsedTimeTimer() {
+        playedTimeTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            secondsPlayed++;
+            // Anzeige im Format MM:SS
+            elapsedTimeField.setText(String.format("%02d:%02d", secondsPlayed / 60, secondsPlayed % 60));
+        }));
+        playedTimeTimeline.setCycleCount(Timeline.INDEFINITE);
+        playedTimeTimeline.play();
     }
 
     // Zentrale Tastatur-Eingabeverarbeitung. Liest die individuellen Tastenbelegungen
@@ -261,7 +277,6 @@ public class GameController {
 
         blockRow = 0;
         blockCol = Board.COLS / 2 - 2; // mittig oben starten
-        holdUsed = false;
 
         // Wenn der neue Stein gleich an seiner Startposition nicht platziert werden kann,
         // ist das Spielfeld voll -> Game Over
@@ -329,6 +344,11 @@ public class GameController {
             hold = temp;
             blockRow = 0;
             blockCol = Board.COLS / 2 - 2;
+
+            if (!board.canPlace(current.getShape(), blockRow, blockCol)) {
+                gameOver();
+                return;
+            }
         }
 
         updateHoldPreview();
@@ -367,6 +387,7 @@ public class GameController {
         linesLabel.setText(String.format("%02d", lines));
 
         lastMoveWasRotate = false;
+        holdUsed = false;
         spawnPiece();
     }
 
@@ -550,15 +571,18 @@ public class GameController {
     // Speichert den Score im UserData und wechselt zum Gameover-Screen.
     private void gameOver() {
         timeline.stop();
+        if (playedTimeTimeline != null) playedTimeTimeline.stop();
         ud.setScore(score);
         ud.save();
         ViewSwitcher.switchTo("gameover.fxml");
+        secondsPlayed = 0;
     }
 
     // Button oben rechts: Spiel beenden
     public void onCloseButtonClicked(ActionEvent actionEvent) {
         if (countdownTimeline != null) countdownTimeline.stop();
         if (timeline != null) timeline.stop();
+        if (playedTimeTimeline != null) playedTimeTimeline.stop();
         ud.save();
         ViewSwitcher.switchTo("menu.fxml");
     }
@@ -577,11 +601,15 @@ public class GameController {
 
         if (paused) {
             pausesUsed++;
+            if (playedTimeTimeline != null) playedTimeTimeline.pause();
             // Anzahl der verbleibenden Pausen anzeigen
             pauseLabel.setText(String.valueOf(MAX_PAUSES - pausesUsed));
         // Wenn keine Pausen mehr übrig sind, den Button deaktivieren
-        } else if (MAX_PAUSES - pausesUsed == 0) {
-            pauseButton.setDisable(true);
+        } else {
+            if (playedTimeTimeline != null) playedTimeTimeline.play();
+            if (MAX_PAUSES - pausesUsed == 0) {
+                pauseButton.setDisable(true);
+            }
         }
         pauseButton.setText(paused ? "▶" : "⏸");
         gameField.requestFocus(); // Fokus zurück aufs Spielfeld, damit Tastatureingaben weiter ankommen
