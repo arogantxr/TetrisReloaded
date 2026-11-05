@@ -3,6 +3,7 @@ package htl.steyr.tetris.controller;
 import htl.steyr.tetris.Board;
 import htl.steyr.tetris.Pieces;
 import htl.steyr.tetris.Score;
+import htl.steyr.tetris.SoundEffects;
 import htl.steyr.tetris.user.UserData;
 import htl.steyr.tetris.user.UserSession;
 import htl.steyr.tetris.utility.ViewSwitcher;
@@ -21,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import htl.steyr.tetris.SoundEffects;
 
 // Controller für den eigentlichen Spiel-Screen (game.fxml).
 // Verbindet die FXML-Elemente mit der Spiellogik aus Board, Pieces und Score.
@@ -340,6 +342,7 @@ public class GameController {
         boolean tSpin = current.isT() && lastMoveWasRotate && board.isTSpin(blockRow, blockCol);
 
         board.lock(current.getShape(), blockRow, blockCol, current.getColor());
+        SoundEffects.playPlace();
 
         java.util.List<Integer> clearedRows = getFullRows();
         int cleared = board.clearFullLines();
