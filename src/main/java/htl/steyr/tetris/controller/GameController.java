@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -26,6 +27,8 @@ import javafx.util.Duration;
 // Enthält selbst keine Spielregeln mehr, sondern delegiert an die ausgelagerten Klassen.
 public class GameController {
 
+    @FXML
+    private TextField elapsedTimeField;
     // FXML-Elemente, die per fx:id aus game.fxml gebunden werden
     @FXML
     private GridPane gameField;   // das Spielfeld-Raster
@@ -170,7 +173,8 @@ public class GameController {
     private void startElapsedTimeTimer() {
         playedTimeTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             secondsPlayed++;
-            System.out.println("Elapsed time: " + secondsPlayed + " seconds");
+            // Anzeige im Format MM:SS
+            elapsedTimeField.setText(String.format("%02d:%02d", secondsPlayed / 60, secondsPlayed % 60));
         }));
         playedTimeTimeline.setCycleCount(Timeline.INDEFINITE);
         playedTimeTimeline.play();
@@ -504,6 +508,7 @@ public class GameController {
         ud.setScore(score);
         ud.save();
         ViewSwitcher.switchTo("gameover.fxml");
+        secondsPlayed = 0;
     }
 
     // Button oben rechts: Spiel beenden
