@@ -37,7 +37,8 @@ public class HighscoreManager {
                 scores.add(new Score(obj.get("name").getAsString(), obj.get("value").getAsInt()));
             }
             return scores;
-        } catch (IOException e) {
+        } catch (IOException | RuntimeException e) {
+            // RuntimeException deckt kaputtes JSON (JsonParseException) und fehlende Felder ab
             e.printStackTrace();
             return new ArrayList<>();
         }

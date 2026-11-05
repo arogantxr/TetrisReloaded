@@ -63,6 +63,11 @@ public class StartController {
 
             UserData userData = new UserData(username.toLowerCase(), password, false);
 
+            if (userData.getPasswordHash() == null) {
+                showAlert("Benutzerdaten beschädigt", "Die Benutzerdaten konnten nicht geladen werden.");
+                return;
+            }
+
             if (!userData.getPasswordHash().equals(htl.steyr.tetris.utility.Hasher.hashText(password))) {
                 showAlert("Falsches Passwort", "Das eingegebene Passwort ist leider falsch.");
                 return;
