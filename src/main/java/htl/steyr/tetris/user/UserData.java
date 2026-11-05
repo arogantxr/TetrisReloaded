@@ -65,27 +65,49 @@ public class UserData {
     private void load(String username) {
         this.username = username;
 
+        // Standardwerte, falls die Datei unvollständig oder beschädigt ist
+        passwordHash = null;
+        volumeMusic = 50;
+        volumeSfx = 50;
+        highscore = 0;
+        settings = new ArrayList<>();
+
         try {
             JsonObject json = JsonParser.parseString(
                     Files.readString(Paths.get("users", username.toLowerCase() + ".txt"))
             ).getAsJsonObject();
 
             passwordHash = json.get("password").getAsString();
-            volumeMusic = json.get("volumeMusic").getAsInt();
-            volumeSfx = json.get("volumeSfx").getAsInt();
-            highscore = json.get("highscore").getAsInt();
+            volumeMusic = getInt(json, "volumeMusic", 50);
+            volumeSfx = getInt(json, "volumeSfx", 50);
+            highscore = getInt(json, "highscore", 0);
             showNextPiece = !json.has("showNextPiece") || json.get("showNextPiece").getAsBoolean();
             holdEnable = !json.has("holdEnable") || json.get("holdEnable").getAsBoolean();
 
-            settings = new ArrayList<>();
-            json.getAsJsonObject("settings").entrySet().forEach(e -> settings.add(new Setting(e.getKey(), KeyCode.valueOf(e.getValue().getAsString()))));
-            if (getSetting("pause") == null) {
-                settings.add(new Setting("pause", KeyCode.P));
+            if (json.has("settings")) {
+                json.getAsJsonObject("settings").entrySet().forEach(e -> {
+                    try {
+                        settings.add(new Setting(e.getKey(), KeyCode.valueOf(e.getValue().getAsString())));
+                    } catch (IllegalArgumentException ignored) {
+                        // ungültige Taste -> wird unten durch die Standardbelegung ersetzt
+                    }
+                });
             }
-
-        } catch (IOException e) {
+        } catch (IOException | RuntimeException e) {
+            // passwordHash bleibt null -> Login meldet beschädigte Benutzerdaten
             e.printStackTrace();
         }
+
+        // fehlende Tastenbelegungen (z.B. "pause" bei alten Dateien) mit Standardwerten auffüllen
+        for (Setting def : getDefaultSettings()) {
+            if (getSetting(def.setting()) == null) {
+                settings.add(def);
+            }
+        }
+    }
+
+    private int getInt(JsonObject json, String key, int fallback) {
+        return json.has(key) ? json.get(key).getAsInt() : fallback;
     }
     public void setSetting(String action, KeyCode key) {
         for (int i = 0; i < settings.size(); i++) {
@@ -159,9 +181,8 @@ public class UserData {
     }
 
     public void setScore(int score) {
-        if(score > 0){
-            this.score = score;
-        }
+        // auch 0 übernehmen, sonst würde der Score der vorherigen Runde stehen bleiben
+        this.score = Math.max(score, 0);
     }
 
     public boolean isShowNextPiece() {

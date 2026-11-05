@@ -308,7 +308,13 @@ public class GameController {
     // Tauscht den aktuellen Stein mit dem gehaltenen Stein (einmal pro Spawn erlaubt)
     private void holdCurrent() {
         if (!ud.isHoldEnable() || level >= 2 || holdUsed) return;
+
+        // Gehaltener Stein muss an der Startposition Platz haben, sonst würde er
+        // in bereits gelockte Blöcke hineingesetzt werden
+        if (hold != null && !board.canPlace(hold.getShape(), 0, Board.COLS / 2 - 2)) return;
+
         holdUsed = true;
+        lastMoveWasRotate = false; // eine Drehung vor dem Tausch darf nicht als T-Spin zählen
 
         if (hold == null) {
             // noch nichts gehalten -> aktuellen Stein "parken" und neuen spawnen
