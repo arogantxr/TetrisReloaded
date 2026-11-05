@@ -48,6 +48,16 @@ public class ViewSwitcher {
         return darkMode;
     }
 
+    public static Stage getStage() {
+        return stage;
+    }
+
+    // Pfad zum Stylesheet, das zum aktuellen Dark/Light Mode passt
+    public static String getStylesheet() {
+        String file = darkMode ? "darkmode.css" : "whitemode.css";
+        return ViewSwitcher.class.getResource("/htl/steyr/tetris/stylesheets/" + file).toExternalForm();
+    }
+
     // Lädt ein neues FXML, baut daraus eine neue Scene und zeigt sie auf der bestehenden Stage an.
     // Wird von allen Controllern verwendet, um zwischen Screens zu wechseln (z.B. "menu.fxml").
     public static void switchTo(String fxml) {
@@ -64,16 +74,7 @@ public class ViewSwitcher {
 
             // Stylesheet setzen (Dark- oder Lightmode), passend zum aktuellen Zustand
             scene.getStylesheets().clear();
-
-            if (darkMode) {
-                scene.getStylesheets().add(
-                        ViewSwitcher.class.getResource("/htl/steyr/tetris/stylesheets/darkmode.css").toExternalForm()
-                );
-            } else {
-                scene.getStylesheets().add(
-                        ViewSwitcher.class.getResource("/htl/steyr/tetris/stylesheets/whitemode.css").toExternalForm()
-                );
-            }
+            scene.getStylesheets().add(getStylesheet());
 
             // Vollbildzustand merken, da setScene ihn unter Windows oft zurücksetzt
             boolean wasFullScreen = stage.isFullScreen();

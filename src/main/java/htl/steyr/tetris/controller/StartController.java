@@ -2,6 +2,7 @@ package htl.steyr.tetris.controller;
 
 import htl.steyr.tetris.user.UserData;
 import htl.steyr.tetris.user.UserSession;
+import htl.steyr.tetris.utility.Dialogs;
 import htl.steyr.tetris.utility.ViewSwitcher;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -105,11 +106,7 @@ public class StartController {
     }
 
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        Dialogs.warning(title, message);
     }
 
     public void onUserFieldAction(ActionEvent actionEvent) {

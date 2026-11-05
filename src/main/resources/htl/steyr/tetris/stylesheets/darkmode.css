@@ -459,3 +459,62 @@
     -fx-control-inner-background: rgba(255, 255, 255, 0.08);
     -fx-text-fill: #ffffff;
 }
+
+/* ===== Dialoge (siehe utility/Dialogs.java) ===== */
+.app-dialog {
+    -fx-background-color: #071423;
+    -fx-background-radius: 16;
+    -fx-border-color: rgba(255, 255, 255, 0.14);
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-padding: 8 10 6 10;
+    -fx-min-width: 380;
+}
+
+.app-dialog > .header-panel {
+    -fx-background-color: transparent;
+    -fx-padding: 16 16 2 16;
+}
+
+.app-dialog > .header-panel .label {
+    -fx-text-fill: #cd32ca;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.app-dialog.warning > .header-panel .label {
+    -fx-text-fill: #ff5c5c;
+}
+
+.app-dialog > .content.label {
+    -fx-text-fill: #c6d1dc;
+    -fx-font-size: 13;
+    -fx-padding: 8 16 14 16;
+}
+
+.app-dialog > .button-bar > .container {
+    -fx-padding: 0 16 14 16;
+}
+
+.app-dialog .button {
+    -fx-background-color: #1b314b;
+    -fx-text-fill: #e7edf4;
+    -fx-border-color: #36516e;
+    -fx-border-width: 1;
+    -fx-padding: 7 20;
+}
+
+.app-dialog .button:hover {
+    -fx-background-color: #294664;
+    -fx-border-color: #cd32ca;
+}
+
+.app-dialog .button:default {
+    -fx-background-color: #129888;
+    -fx-text-fill: #06131e;
+    -fx-border-color: transparent;
+}
+
+.app-dialog .button:default:hover {
+    -fx-background-color: #20b7a4;
+}

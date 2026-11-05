@@ -3,6 +3,7 @@ package htl.steyr.tetris.controller;
 import htl.steyr.tetris.highscore_management.HighscoreManager;
 import htl.steyr.tetris.user.UserData;
 import htl.steyr.tetris.user.UserSession;
+import htl.steyr.tetris.utility.Dialogs;
 import htl.steyr.tetris.utility.ViewSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -130,22 +131,13 @@ public class OptionsController {
 
     // Setzt die globale Bestenliste nach Bestätigung zurück.
     public void resetHighscoreClicked(ActionEvent actionEvent) {
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        confirm.setTitle("Leaderboard zurücksetzen");
-        confirm.setHeaderText("Alle Einträge aus dem Leaderboard löschen?");
-        confirm.setContentText("Diese Änderung kann nicht rückgängig gemacht werden.");
+        if (!Dialogs.confirm("Leaderboard zurücksetzen",
+                "Alle Einträge aus dem Leaderboard löschen?\nDiese Änderung kann nicht rückgängig gemacht werden.")) {
+            return;
+        }
 
-        confirm.showAndWait().ifPresent(response -> {
-            if (response != ButtonType.OK) return;
-
-            HighscoreManager.clearData();
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Leaderboard zurückgesetzt");
-            alert.setHeaderText(null);
-            alert.setContentText("Das Leaderboard wurde zurückgesetzt.");
-            alert.showAndWait();
-        });
+        HighscoreManager.clearData();
+        Dialogs.info("Leaderboard zurückgesetzt", "Das Leaderboard wurde zurückgesetzt.");
     }
 
 
@@ -158,11 +150,7 @@ public class OptionsController {
         ud.setDarkMode(ViewSwitcher.isDarkMode());
         ud.save();
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Gespeichert");
-        alert.setHeaderText(null);
-        alert.setContentText("Einstellungen wurden gespeichert!");
-        alert.showAndWait();
+        Dialogs.info("Gespeichert", "Einstellungen wurden gespeichert!");
         ViewSwitcher.switchTo("menu.fxml");
     }
 
@@ -211,47 +199,44 @@ public class OptionsController {
     // Setzt ALLE Einstellungen (Lautstärke + Tastenbelegung) auf die Standardwerte zurück,
     // nach vorheriger Bestätigung durch den User
     private void clearAllData() {
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        confirm.setTitle("Warnung");
-        confirm.setHeaderText("Alles Änderungen zurücksetzen?");
-        confirm.setContentText("Diese Änderung kann nicht mehr rückgängig gemacht werden!");
+        if (!Dialogs.confirm("Alles zurücksetzen?",
+                "Alle Einstellungen und Tastenbelegungen werden auf die Standardwerte gesetzt.\n" +
+                        "Diese Änderung kann nicht mehr rückgängig gemacht werden!")) {
+            return; // Abbrechen -> nichts tun
+        }
 
-        confirm.showAndWait().ifPresent(response -> {
-            if (response != ButtonType.OK) return; // Abbrechen -> nichts tun
+        UserData ud = UserSession.getUserData();
+        ud.setVolumeMusic(50);
+        ud.setVolumeSfx(50);
+        ud.setShowNextPiece(true);
+        ud.setHoldEnable(true);
+        musicSlider.setValue(50);
+        soundSlider.setValue(50);
+        showNextPieceEnabled = true;
+        updateShowNextPieceButton();
+        holdEnabled = true;
+        updateHoldEnableButton();
 
-            UserData ud = UserSession.getUserData();
-            ud.setVolumeMusic(50);
-            ud.setVolumeSfx(50);
-            ud.setShowNextPiece(true);
-            ud.setHoldEnable(true);
-            musicSlider.setValue(50);
-            soundSlider.setValue(50);
-            showNextPieceEnabled = true;
-            updateShowNextPieceButton();
-            holdEnabled = true;
-            updateHoldEnableButton();
+        // Standard-Tastenbelegung wiederherstellen
+        ud.setSetting("left", KeyCode.A);
+        ud.setSetting("right", KeyCode.D);
+        ud.setSetting("rotate_left", KeyCode.Q);
+        ud.setSetting("rotate_right", KeyCode.E);
+        ud.setSetting("hold", KeyCode.C);
+        ud.setSetting("softdrop", KeyCode.S);
+        ud.setSetting("harddrop", KeyCode.SPACE);
+        ud.setSetting("pause", KeyCode.P);
+        ud.save();
 
-            // Standard-Tastenbelegung wiederherstellen
-            ud.setSetting("left", KeyCode.A);
-            ud.setSetting("right", KeyCode.D);
-            ud.setSetting("rotate_left", KeyCode.Q);
-            ud.setSetting("rotate_right", KeyCode.E);
-            ud.setSetting("hold", KeyCode.C);
-            ud.setSetting("softdrop", KeyCode.S);
-            ud.setSetting("harddrop", KeyCode.SPACE);
-            ud.setSetting("pause", KeyCode.P);
-            ud.save();
-
-            // Buttons in der UI ebenfalls aktualisieren
-            leftKeyButton.setText(KeyCode.A.getName());
-            rightKeyButton.setText(KeyCode.D.getName());
-            rotateLeftButton.setText(KeyCode.Q.getName());
-            rotateRightButton.setText(KeyCode.E.getName());
-            holdButton.setText(KeyCode.C.getName());
-            softdropButton.setText(KeyCode.S.getName());
-            harddropButton.setText(KeyCode.SPACE.getName());
-            pauseKeyButton.setText(KeyCode.P.getName());
-        });
+        // Buttons in der UI ebenfalls aktualisieren
+        leftKeyButton.setText(KeyCode.A.getName());
+        rightKeyButton.setText(KeyCode.D.getName());
+        rotateLeftButton.setText(KeyCode.Q.getName());
+        rotateRightButton.setText(KeyCode.E.getName());
+        holdButton.setText(KeyCode.C.getName());
+        softdropButton.setText(KeyCode.S.getName());
+        harddropButton.setText(KeyCode.SPACE.getName());
+        pauseKeyButton.setText(KeyCode.P.getName());
     }
 
     private void updateHoldEnableButton() {
@@ -286,13 +271,11 @@ public class OptionsController {
 
             boolean isEscape = newKey.equals("ESCAPE");
             if (isEscape || isKeyAlreadyUsed(action, newKey)) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle(isEscape ? "Taste nicht erlaubt" : "Taste bereits vergeben");
-                alert.setHeaderText(null);
-                alert.setContentText(isEscape
-                        ? "Die Taste \"ESCAPE\" kann nicht belegt werden!"
-                        : "Die Taste \"" + newKey + "\" wird bereits verwendet!");
-                alert.showAndWait();
+                Dialogs.warning(
+                        isEscape ? "Taste nicht erlaubt" : "Taste bereits vergeben",
+                        isEscape
+                                ? "Die Taste \"ESCAPE\" kann nicht belegt werden!"
+                                : "Die Taste \"" + newKey + "\" wird bereits verwendet!");
                 button.setText(UserSession.getUserData().getSetting(action).getName()); // alten Wert wiederherstellen
             } else {
                 button.setText(newKey);
