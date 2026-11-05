@@ -4,6 +4,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 
 import java.util.Objects;
 
@@ -25,6 +28,8 @@ public class ViewSwitcher {
     // Wird einmalig beim App-Start aufgerufen (TetrisApplication), um die Stage zu hinterlegen
     public static void setStage(Stage s) {
         stage = s;
+        stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
     }
 
     // Darkmode aktivieren
@@ -70,6 +75,13 @@ public class ViewSwitcher {
             }
 
             stage.setScene(scene);
+            // F11: randlosen Vollbildmodus ein-/ausschalten
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.F11) {
+                    stage.setFullScreen(!stage.isFullScreen());
+                    event.consume();
+                }
+            });
             stage.setResizable(true);
             stage.setMinWidth(MIN_WIDTH);
             stage.setMinHeight(MIN_HEIGHT);
