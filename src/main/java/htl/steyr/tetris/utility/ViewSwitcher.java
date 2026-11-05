@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.application.Platform;
 
 import java.util.Objects;
 
@@ -74,6 +75,9 @@ public class ViewSwitcher {
                 );
             }
 
+            // Vollbildzustand merken, da setScene ihn unter Windows oft zurücksetzt
+            boolean wasFullScreen = stage.isFullScreen();
+
             stage.setScene(scene);
             // F11: randlosen Vollbildmodus ein-/ausschalten
             scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -85,6 +89,11 @@ public class ViewSwitcher {
             stage.setResizable(true);
             stage.setMinWidth(MIN_WIDTH);
             stage.setMinHeight(MIN_HEIGHT);
+
+            // Vollbild nach dem Scene-Wechsel wiederherstellen
+            if (wasFullScreen) {
+                Platform.runLater(() -> stage.setFullScreen(true));
+            }
 
             // Nur beim allerersten Anzeigen zentrieren, sonst springt das Fenster bei jedem Wechsel
             if (oldScene == null) {
