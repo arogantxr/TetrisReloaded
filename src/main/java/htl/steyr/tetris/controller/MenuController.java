@@ -12,7 +12,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+
+import java.util.Objects;
 
 // Controller für das Hauptmenü. Zeigt die Top-10-Highscores, begrüßt den eingeloggten
 // User und startet hier auch die Hintergrundmusik (erster Screen nach dem Login).
@@ -30,11 +34,20 @@ public class MenuController {
     @FXML
     private ListView<Score> highscoreList; // zeigt die geladenen Highscores an
     @FXML
+    private ImageView logoImageView;
+    @FXML
     private Pane adBanner;
 
     private UserData ud;
 
     public void initialize(){
+        String logoPath = ViewSwitcher.isDarkMode()
+                ? "/image/HTLSteyr_Logo_White.png"
+                : "/image/HTLSteyr_Logo_Blue.png";
+        logoImageView.setImage(new Image(Objects.requireNonNull(
+                getClass().getResource(logoPath), "Logo resource not found: " + logoPath
+        ).toExternalForm()));
+
         // bestehende Highscores aus der Datei laden und in die Liste eintragen
         highscoreList.setCellFactory(list -> new ListCell<>() {
             @Override
