@@ -159,9 +159,8 @@ public class UserData {
     }
 
     public void setScore(int score) {
-        if(score > 0){
-            this.score = score;
-        }
+        // auch 0 übernehmen, sonst würde der Score der vorherigen Runde stehen bleiben
+        this.score = Math.max(score, 0);
     }
 
     public boolean isShowNextPiece() {
