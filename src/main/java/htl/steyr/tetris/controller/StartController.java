@@ -1,7 +1,6 @@
 package htl.steyr.tetris.controller;
 
 import htl.steyr.tetris.user.UserData;
-import htl.steyr.tetris.user.UserSession;
 import htl.steyr.tetris.utility.ViewSwitcher;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -50,7 +49,7 @@ public class StartController {
                 );
                 return;
             }
-            new UserData(username, password, true);
+            new UserData(username.toLowerCase(), password, true);
 
         } else {
             if (!userExists) {
@@ -62,7 +61,7 @@ public class StartController {
                 return;
             }
 
-            UserData userData = new UserData(username, password, false);
+            UserData userData = new UserData(username.toLowerCase(), password, false);
 
             if (!userData.getPasswordHash().equals(htl.steyr.tetris.utility.Hasher.hashText(password))) {
                 showAlert("Falsches Passwort", "Das eingegebene Passwort ist leider falsch.");
@@ -70,9 +69,8 @@ public class StartController {
             }
         }
 
+        // UserData setzt sich im Konstruktor selbst in die UserSession
         ViewSwitcher.switchTo("menu.fxml");
-        UserData ud = new UserData(username.toLowerCase(),password, isRegister);
-        UserSession.setUserData(ud);
     }
 
     public void onMethodButtonClicked(MouseEvent mouseEvent) {
