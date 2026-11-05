@@ -157,6 +157,8 @@ public class OptionsController {
         alert.setContentText("Einstellungen wurden gespeichert!");
         alert.showAndWait();
         ud.save();
+
+        ViewSwitcher.switchTo("menu.fxml");
     }
 
     private void loadTheme() {
