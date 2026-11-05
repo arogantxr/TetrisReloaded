@@ -39,6 +39,16 @@ public class StartController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
 
+        // Username wird als Dateiname verwendet -> nur sichere Zeichen erlauben
+        if (!username.matches("[A-Za-z0-9_-]{1,20}")) {
+            showAlert(
+                    "Ungültiger Benutzername",
+                    "Der Benutzername darf 1-20 Zeichen lang sein und nur\n" +
+                            "Buchstaben, Zahlen, \"_\" und \"-\" enthalten."
+            );
+            return;
+        }
+
         boolean userExists = Files.exists(Paths.get("users", username.toLowerCase() + ".txt"));
 
         if (isRegister) {
@@ -50,7 +60,7 @@ public class StartController {
                 );
                 return;
             }
-            new UserData(username, password, true);
+            new UserData(username.toLowerCase(), password, true);
 
         } else {
             if (!userExists) {
@@ -62,7 +72,12 @@ public class StartController {
                 return;
             }
 
-            UserData userData = new UserData(username, password, false);
+            UserData userData = new UserData(username.toLowerCase(), password, false);
+
+            if (userData.getPasswordHash() == null) {
+                showAlert("Benutzerdaten beschädigt", "Die Benutzerdaten konnten nicht geladen werden.");
+                return;
+            }
 
             if (!userData.getPasswordHash().equals(htl.steyr.tetris.utility.Hasher.hashText(password))) {
                 showAlert("Falsches Passwort", "Das eingegebene Passwort ist leider falsch.");

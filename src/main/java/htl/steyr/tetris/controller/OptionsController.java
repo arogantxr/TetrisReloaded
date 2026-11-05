@@ -284,11 +284,14 @@ public class OptionsController {
         scene.setOnKeyPressed(event -> {
             String newKey = event.getCode().toString();
 
-            if (isKeyAlreadyUsed(action, newKey) || newKey.equals("ESCAPE")) {
+            boolean isEscape = newKey.equals("ESCAPE");
+            if (isEscape || isKeyAlreadyUsed(action, newKey)) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Taste bereits vergeben");
+                alert.setTitle(isEscape ? "Taste nicht erlaubt" : "Taste bereits vergeben");
                 alert.setHeaderText(null);
-                alert.setContentText("Die Taste \"" + newKey + "\" wird bereits verwendet!");
+                alert.setContentText(isEscape
+                        ? "Die Taste \"ESCAPE\" kann nicht belegt werden!"
+                        : "Die Taste \"" + newKey + "\" wird bereits verwendet!");
                 alert.showAndWait();
                 button.setText(UserSession.getUserData().getSetting(action).getName()); // alten Wert wiederherstellen
             } else {
