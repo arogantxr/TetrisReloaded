@@ -62,6 +62,11 @@ public class OptionsController {
     @FXML
     public void initialize() {
         ud = UserSession.getUserData();
+        if (ud.isDarkMode()) {
+            ViewSwitcher.setDarkMode();
+        } else {
+            ViewSwitcher.setLightMode();
+        }
 
         // Slider mit den gespeicherten Werten initialisieren
         musicSlider.setValue(ud.getVolumeMusic());
@@ -109,6 +114,7 @@ public class OptionsController {
     }
 
     private void returnToMenu() {
+        ud.setDarkMode(ViewSwitcher.isDarkMode());
         ud.save();
         ViewSwitcher.switchTo("menu.fxml");
     }
@@ -145,20 +151,18 @@ public class OptionsController {
 
     // Übernimmt die aktuellen Sliderwerte dauerhaft in UserData und speichert sie ab
     private void saveSettings() {
-        UserData ud = UserSession.getUserData();
         ud.setVolumeMusic((int) musicSlider.getValue());
         ud.setVolumeSfx((int) soundSlider.getValue());
         ud.setShowNextPiece(showNextPieceEnabled);
         ud.setHoldEnable(holdEnabled);
+        ud.setDarkMode(ViewSwitcher.isDarkMode());
+        ud.save();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Gespeichert");
         alert.setHeaderText(null);
         alert.setContentText("Einstellungen wurden gespeichert!");
         alert.showAndWait();
-        ud.save();
-
-        ViewSwitcher.switchTo("menu.fxml");
     }
 
     private void loadTheme() {
@@ -172,6 +176,8 @@ public class OptionsController {
         } else {
             ViewSwitcher.setDarkMode();
         }
+        ud.setDarkMode(ViewSwitcher.isDarkMode());
+        ud.save();
         applyTheme();
     }
 
@@ -277,14 +283,11 @@ public class OptionsController {
         scene.setOnKeyPressed(event -> {
             String newKey = event.getCode().toString();
 
-            boolean isEscape = newKey.equals("ESCAPE");
-            if (isEscape || isKeyAlreadyUsed(action, newKey)) {
+            if (isKeyAlreadyUsed(action, newKey) || newKey.equals("ESCAPE")) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle(isEscape ? "Taste nicht erlaubt" : "Taste bereits vergeben");
+                alert.setTitle("Taste bereits vergeben");
                 alert.setHeaderText(null);
-                alert.setContentText(isEscape
-                        ? "Die Taste \"ESCAPE\" kann nicht belegt werden!"
-                        : "Die Taste \"" + newKey + "\" wird bereits verwendet!");
+                alert.setContentText("Die Taste \"" + newKey + "\" wird bereits verwendet!");
                 alert.showAndWait();
                 button.setText(UserSession.getUserData().getSetting(action).getName()); // alten Wert wiederherstellen
             } else {

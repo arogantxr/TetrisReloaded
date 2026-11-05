@@ -19,6 +19,7 @@ public class UserData {
     private int score = 0;
     private boolean showNextPiece = true;
     private boolean holdEnable = true;
+    private boolean darkMode = true;
 
 
     public UserData(String username, String password, boolean isNew) {
@@ -52,6 +53,7 @@ public class UserData {
         json.addProperty("highscore", highscore);
         json.addProperty("showNextPiece", showNextPiece);
         json.addProperty("holdEnable", holdEnable);
+        json.addProperty("darkMode", darkMode);
 
         Path file = Paths.get("users", username.toLowerCase() + ".txt");
         try {
@@ -83,6 +85,7 @@ public class UserData {
             highscore = getInt(json, "highscore", 0);
             showNextPiece = !json.has("showNextPiece") || json.get("showNextPiece").getAsBoolean();
             holdEnable = !json.has("holdEnable") || json.get("holdEnable").getAsBoolean();
+            darkMode = !json.has("darkMode") || json.get("darkMode").getAsBoolean();
 
             if (json.has("settings")) {
                 json.getAsJsonObject("settings").entrySet().forEach(e -> {
@@ -199,5 +202,13 @@ public class UserData {
 
     public void setHoldEnable(boolean holdEnable) {
         this.holdEnable = holdEnable;
+    }
+
+    public boolean isDarkMode() {
+        return darkMode;
+    }
+
+    public void setDarkMode(boolean darkMode) {
+        this.darkMode = darkMode;
     }
 }
