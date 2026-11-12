@@ -599,6 +599,9 @@ public class GameController {
         // Pause-Status umschalten
         paused = !paused;
 
+        // Wenn das Spiel pausiert ist, wird das Spielfeld ausgeblendet, damit der Spieler seinen Spielzug nicht planen kann.
+        gameField.setVisible(!paused);
+
         if (paused) {
             pausesUsed++;
             if (playedTimeTimeline != null) playedTimeTimeline.pause();
