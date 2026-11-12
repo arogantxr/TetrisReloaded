@@ -373,6 +373,7 @@ public class GameController {
         } else if (cleared > 0) {
             gained = scoreCalc.linesCleared(cleared);
         }
+        gained += scoreCalc.multiClearBonus(cleared);
 
         if (gained > 0) {
             score += gained * level; // höheres Level = mehr Punkte pro Clear

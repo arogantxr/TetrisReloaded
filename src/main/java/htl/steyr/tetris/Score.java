@@ -15,6 +15,8 @@ public class Score {
     private static final int TSPIN_DOUBLE = 1200; // T-Spin mit 2 gelöschten Reihen
     private static final int TSPIN_TRIPLE = 1600; // T-Spin mit 3 gelöschten Reihen
 
+    private static final int MULTI_CLEAR_BONUS = 100;
+
     // Punkte pro gefallener Reihe bei Soft-/Hard-Drop
     private static final int SOFT_DROP_PER_ROW = 1;
     private static final int HARD_DROP_PER_ROW = 2;
@@ -39,6 +41,11 @@ public class Score {
             case 3: return TSPIN_TRIPLE;
             default: return 0;
         }
+    }
+
+    // Bonus für mehrere gleichzeitig gelöschte Reihen, zusätzlich zu den normalen Punkten.
+    public int multiClearBonus(int lines) {
+        return lines > 1 ? MULTI_CLEAR_BONUS : 0;
     }
 
     // Punkte für Soft Drop (manuelles schnelleres Runterdrücken), pro gefallener Reihe
