@@ -76,6 +76,11 @@ public class OptionsController {
                 htl.steyr.tetris.Music.getInstance().setVolume(newVal.doubleValue())
         );
         soundSlider.setValue(ud.getVolumeSfx());
+        // Änderungen am SFX-Slider wirken sofort auf den Line-Clear- und Platzierungs-Sound.
+        htl.steyr.tetris.SoundEffects.setVolume(soundSlider.getValue());
+        soundSlider.valueProperty().addListener((obs, oldVal, newVal) ->
+                htl.steyr.tetris.SoundEffects.setVolume(newVal.doubleValue())
+        );
 
         showNextPieceEnabled = ud.isShowNextPiece();
         updateShowNextPieceButton();
