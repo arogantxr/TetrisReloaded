@@ -12,15 +12,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import java.time.format.DateTimeFormatter;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+
+import java.util.Objects;
 
 // Controller für das Hauptmenü. Zeigt die Top-10-Highscores, begrüßt den eingeloggten
 // User und startet hier auch die Hintergrundmusik (erster Screen nach dem Login).
 public class MenuController {
 
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
+    @FXML
+    private VBox bannerPanel;
+    @FXML
+    private StackPane logoContainer;
     @FXML
     private Button closeButton;
     @FXML
@@ -34,11 +42,31 @@ public class MenuController {
     @FXML
     private ListView<Score> highscoreList; // zeigt die geladenen Highscores an
     @FXML
+    private ImageView logoImageView;
+    @FXML
     private Pane adBanner;
 
     private UserData ud;
 
     public void initialize(){
+        String logoPath = ViewSwitcher.isDarkMode()
+                ? "/image/HTLSteyr_Logo_White.png"
+                : "/image/HTLSteyr_Logo_Blue.png";
+        logoImageView.setImage(new Image(Objects.requireNonNull(
+                getClass().getResource(logoPath), "Logo resource not found: " + logoPath
+        ).toExternalForm()));
+
+        // Logo füllt immer den verfügbaren Platz im Container (Seitenverhältnis bleibt erhalten)
+        logoImageView.fitWidthProperty().bind(logoContainer.widthProperty());
+        logoImageView.fitHeightProperty().bind(logoContainer.heightProperty());
+
+// Panelbreite wächst mit dem Fenster mit (ca. 22 % der Breite), damit auch seitlich Platz da ist
+        bannerPanel.sceneProperty().addListener((obs, oldScene, scene) -> {
+            if (scene != null) {
+                bannerPanel.prefWidthProperty().bind(scene.widthProperty().multiply(0.22));
+            }
+        });
+
         // bestehende Highscores aus der Datei laden und in die Liste eintragen
         highscoreList.setCellFactory(list -> new ListCell<>() {
             @Override

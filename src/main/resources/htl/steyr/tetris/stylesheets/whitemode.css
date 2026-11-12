@@ -439,3 +439,66 @@
 .Label-darkmode {
     -fx-text-fill: #172333;
 }
+
+/* ===== Dialoge (siehe utility/Dialogs.java) ===== */
+.app-dialog {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16;
+    -fx-border-color: rgba(74, 169, 216, 0.35);
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-padding: 8 10 6 10;
+    -fx-min-width: 380;
+}
+
+.app-dialog > .header-panel {
+    -fx-background-color: transparent;
+    -fx-padding: 16 16 2 16;
+}
+
+.app-dialog > .header-panel .label {
+    -fx-text-fill: #4aa9d8;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.app-dialog.warning > .header-panel .label {
+    -fx-text-fill: #d51c1c;
+}
+
+.app-dialog > .content.label {
+    -fx-text-fill: #31566b;
+    -fx-font-size: 13;
+    -fx-padding: 8 16 14 16;
+}
+
+.app-dialog > .button-bar > .container {
+    -fx-padding: 0 16 14 16;
+}
+
+.app-dialog .button {
+    -fx-background-color: #e7f4fa;
+    -fx-text-fill: #25485a;
+    -fx-border-color: #a9d2e5;
+    -fx-border-width: 1;
+    -fx-padding: 7 20;
+}
+
+.app-dialog .button:hover {
+    -fx-background-color: #d5edf7;
+    -fx-border-color: #4aa9d8;
+}
+
+.app-dialog .button:default {
+    -fx-background-color: #168f83;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: transparent;
+}
+
+.app-dialog .button:default:hover {
+    -fx-background-color: #20a99b;
+}
+
+.game-play{
+    -fx-text-fill: #000000;
+}

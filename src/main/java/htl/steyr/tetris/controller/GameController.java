@@ -373,6 +373,7 @@ public class GameController {
         } else if (cleared > 0) {
             gained = scoreCalc.linesCleared(cleared);
         }
+        gained += scoreCalc.multiClearBonus(cleared);
 
         if (gained > 0) {
             score += gained * level; // höheres Level = mehr Punkte pro Clear
@@ -600,6 +601,9 @@ public class GameController {
 
         // Pause-Status umschalten
         paused = !paused;
+
+        // Wenn das Spiel pausiert ist, wird das Spielfeld ausgeblendet, damit der Spieler seinen Spielzug nicht planen kann.
+        gameField.setVisible(!paused);
 
         if (paused) {
             pausesUsed++;

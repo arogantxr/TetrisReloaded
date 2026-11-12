@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.application.Platform;
 
 import java.util.Objects;
 
@@ -47,6 +48,16 @@ public class ViewSwitcher {
         return darkMode;
     }
 
+    public static Stage getStage() {
+        return stage;
+    }
+
+    // Pfad zum Stylesheet, das zum aktuellen Dark/Light Mode passt
+    public static String getStylesheet() {
+        String file = darkMode ? "darkmode.css" : "whitemode.css";
+        return ViewSwitcher.class.getResource("/htl/steyr/tetris/stylesheets/" + file).toExternalForm();
+    }
+
     // Lädt ein neues FXML, baut daraus eine neue Scene und zeigt sie auf der bestehenden Stage an.
     // Wird von allen Controllern verwendet, um zwischen Screens zu wechseln (z.B. "menu.fxml").
     public static void switchTo(String fxml) {
@@ -63,16 +74,10 @@ public class ViewSwitcher {
 
             // Stylesheet setzen (Dark- oder Lightmode), passend zum aktuellen Zustand
             scene.getStylesheets().clear();
+            scene.getStylesheets().add(getStylesheet());
 
-            if (darkMode) {
-                scene.getStylesheets().add(
-                        ViewSwitcher.class.getResource("/htl/steyr/tetris/stylesheets/darkmode.css").toExternalForm()
-                );
-            } else {
-                scene.getStylesheets().add(
-                        ViewSwitcher.class.getResource("/htl/steyr/tetris/stylesheets/whitemode.css").toExternalForm()
-                );
-            }
+            // Vollbildzustand merken, da setScene ihn unter Windows oft zurücksetzt
+            boolean wasFullScreen = stage.isFullScreen();
 
             stage.setScene(scene);
             // F11: randlosen Vollbildmodus ein-/ausschalten
@@ -85,6 +90,11 @@ public class ViewSwitcher {
             stage.setResizable(true);
             stage.setMinWidth(MIN_WIDTH);
             stage.setMinHeight(MIN_HEIGHT);
+
+            // Vollbild nach dem Scene-Wechsel wiederherstellen
+            if (wasFullScreen) {
+                Platform.runLater(() -> stage.setFullScreen(true));
+            }
 
             // Nur beim allerersten Anzeigen zentrieren, sonst springt das Fenster bei jedem Wechsel
             if (oldScene == null) {
