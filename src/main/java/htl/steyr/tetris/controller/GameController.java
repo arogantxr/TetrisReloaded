@@ -95,6 +95,8 @@ public class GameController {
     @FXML
     public void initialize() {
         ud = UserSession.getUserData();
+        // Stellt die gespeicherte SFX-Lautstärke auch beim Start einer Spielrunde wieder her.
+        SoundEffects.setVolume(ud.getVolumeSfx());
         buildGrid(); // visuelles Raster aus Rectangles erzeugen
 
         // Spielfeld mit dem Fenster mitwachsen/-schrumpfen lassen
@@ -362,10 +364,16 @@ public class GameController {
         boolean tSpin = current.isT() && lastMoveWasRotate && board.isTSpin(blockRow, blockCol);
 
         board.lock(current.getShape(), blockRow, blockCol, current.getColor());
-        SoundEffects.playPlace();
 
         java.util.List<Integer> clearedRows = getFullRows();
         int cleared = board.clearFullLines();
+
+        // Verhindert, dass der Platzierungssound den Line-Clear-Sound gleichzeitig überlagert.
+        if (cleared > 0) {
+            SoundEffects.playLineClear();
+        } else {
+            SoundEffects.playPlace();
+        }
 
         int gained = 0;
         if (tSpin) {
