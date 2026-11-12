@@ -70,7 +70,7 @@
                                   <!-- GAMEPLAY -->
                             <VBox alignment="CENTER" spacing="10">
 
-                                <Label text="Gameplay">
+                                <Label styleClass="game-play" text="Gameplay">
                                     <font>
                                         <Font size="22" />
                                     </font>
