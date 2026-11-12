@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.StackPane?>
 <BorderPane prefHeight="600" prefWidth="900" styleClass="menu-screen" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.tetris.controller.MenuController">
 
     <!-- X Button oben rechts -->
@@ -56,13 +57,15 @@
 
     <!-- Werbebanner rechts -->
     <right>
-        <VBox alignment="TOP_CENTER" prefWidth="170" spacing="12" styleClass="banner-panel">
+        <VBox fx:id="bannerPanel" alignment="TOP_CENTER" prefWidth="170" spacing="12" styleClass="banner-panel">
             <padding>
                 <Insets bottom="28" left="18" right="18" top="28" />
             </padding>
             <Label styleClass="banner-title" text="READY&#10;TO PLAY?" />
             <Label styleClass="banner-mark" text="◆" />
-         <ImageView id="logoImageView" fx:id="logoImageView" fitHeight="371.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <StackPane fx:id="logoContainer" minWidth="0" minHeight="0" VBox.vgrow="ALWAYS">
+                <ImageView fx:id="logoImageView" pickOnBounds="true" preserveRatio="true" />
+            </StackPane>
             <Label styleClass="banner-copy" text="Build your best run&#10;and reach the top." />
         </VBox>
     </right>
