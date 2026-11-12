@@ -468,3 +468,7 @@
 .app-dialog .button:default:hover {
     -fx-background-color: #20a99b;
 }
+
+.game-play{
+    -fx-text-fill: #000000;
+}
