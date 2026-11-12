@@ -137,4 +137,4 @@ beim Spielen automatisch verwendet beziehungsweise angelegt.
 
 Dies ist ein Schulprojekt der **[HTL Steyr](https://www.htl-steyr.ac.at/)**.
 
-![Logo der HTL Steyr](src/main/resources/image/HTLSteyr_Logo_White%20-%20Kopie.png)
+![](src/main/resources/image/HTLSteyr_Logo_White_README.png)
