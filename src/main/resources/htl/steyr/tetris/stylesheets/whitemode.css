@@ -57,6 +57,30 @@
     -fx-padding: 0;
 }
 
+.leaderboard-screen {
+    -fx-background-color: linear-gradient(to bottom right, #f5f1fb, #e9e3f5 62%, #cde8e3);
+}
+
+.leaderboard-header {
+    -fx-background-color: rgba(255, 255, 255, 0.72);
+}
+
+.leaderboard-list {
+    -fx-background-color: rgba(23, 35, 51, 0.055);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(23, 35, 51, 0.12);
+    -fx-border-radius: 12;
+    -fx-padding: 8;
+}
+
+.leaderboard-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent rgba(23, 35, 51, 0.10) transparent;
+    -fx-text-fill: #172333;
+    -fx-font-size: 15;
+    -fx-padding: 16 14;
+}
+
 .menu-header, .auth-header {
     -fx-background-color: rgba(255, 255, 255, 0.72);
 }
@@ -98,6 +122,12 @@
     -fx-border-color: transparent transparent rgba(23, 35, 51, 0.10) transparent;
     -fx-text-fill: #172333;
     -fx-padding: 12 8;
+}
+
+.highscore-list .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
 }
 
 .banner-panel {

@@ -4,6 +4,7 @@ import com.google.gson.*;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class HighscoreManager {
@@ -34,7 +35,13 @@ public class HighscoreManager {
             List<Score> scores = new ArrayList<>();
             for (JsonElement e : array) {
                 JsonObject obj = e.getAsJsonObject();
-                scores.add(new Score(obj.get("name").getAsString(), obj.get("value").getAsInt()));
+                LocalDateTime date = obj.has("date")
+                        ? LocalDateTime.parse(obj.get("date").getAsString())
+                        : LocalDateTime.MIN;
+                int level = obj.has("level") ? obj.get("level").getAsInt() : 1;
+                int lines = obj.has("lines") ? obj.get("lines").getAsInt() : 0;
+                scores.add(new Score(obj.get("name").getAsString(), obj.get("value").getAsInt(),
+                        date, level, lines));
             }
             return scores;
         } catch (IOException | RuntimeException e) {
@@ -50,6 +57,9 @@ public class HighscoreManager {
             JsonObject obj = new JsonObject();
             obj.addProperty("name", score.name());
             obj.addProperty("value", score.value());
+            obj.addProperty("date", score.date().toString());
+            obj.addProperty("level", score.level());
+            obj.addProperty("lines", score.lines());
             array.add(obj);
         }
 

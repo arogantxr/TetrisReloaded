@@ -60,8 +60,8 @@ verwendet werden.
 1. Im Hauptmenü **Spielen** auswählen.
 2. Die fallenden Steine während des Countdowns vorbereiten und im Spielfeld platzieren.
 3. Vollständige Reihen bilden, um Punkte zu erhalten und im Level aufzusteigen.
-4. Nach dem Spiel wird der erreichte Punktestand angezeigt und in die Bestenliste
-   übernommen.
+4. Nach dem Spiel werden Punktestand, Level und Lines angezeigt und gemeinsam mit
+   dem Datum in die Bestenliste übernommen.
 
 Im Menü **Optionen** können die Lautstärke, das Farbschema und die Tastenbelegung
 angepasst werden. Außerdem lassen sich die Vorschau des nächsten Steins und die
@@ -74,6 +74,7 @@ Hold-Funktion ein- oder ausschalten. Änderungen werden pro Benutzer gespeichert
 - Vorschau auf den nächsten Stein
 - Hold-Funktion zum Zwischenspeichern eines Steins
 - Persönliche & Gerät Bestenliste
+- Bestenlisten-Einträge mit Datum, Level und Anzahl gelöschter Lines
 - Lokale Registrierung und Anmeldung
 - Passwortspeicherung als Hash statt im Klartext
 - Individuelle Tastenbelegung

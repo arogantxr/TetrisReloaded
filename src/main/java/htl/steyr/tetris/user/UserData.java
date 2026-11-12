@@ -17,6 +17,8 @@ public class UserData {
     private int volumeSfx;
     private int highscore;
     private int score = 0;
+    private int level = 1;
+    private int lines = 0;
     private boolean showNextPiece = true;
     private boolean holdEnable = true;
     private boolean darkMode = true;
@@ -186,6 +188,22 @@ public class UserData {
     public void setScore(int score) {
         // auch 0 übernehmen, sonst würde der Score der vorherigen Runde stehen bleiben
         this.score = Math.max(score, 0);
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = Math.max(level, 1);
+    }
+
+    public int getLines() {
+        return lines;
+    }
+
+    public void setLines(int lines) {
+        this.lines = Math.max(lines, 0);
     }
 
     public boolean isShowNextPiece() {

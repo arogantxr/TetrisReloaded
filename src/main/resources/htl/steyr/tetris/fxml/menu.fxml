@@ -45,6 +45,13 @@
             <ListView fx:id="highscoreList"
                       VBox.vgrow="ALWAYS"
                       styleClass="highscore-list"/>
+
+            <Button text="View all Scores"
+                    fx:id="viewAllScoresButton"
+                    prefHeight="40"
+                    maxWidth="Infinity"
+                    styleClass="secondary-button"
+                    onAction="#onViewAllScoresClicked"/>
         </VBox>
     </left>
 

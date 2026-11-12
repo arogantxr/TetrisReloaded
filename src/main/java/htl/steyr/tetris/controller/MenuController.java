@@ -13,11 +13,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
+import java.time.format.DateTimeFormatter;
 
 // Controller für das Hauptmenü. Zeigt die Top-10-Highscores, begrüßt den eingeloggten
 // User und startet hier auch die Hintergrundmusik (erster Screen nach dem Login).
 public class MenuController {
 
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     @FXML
     private Button closeButton;
@@ -25,6 +27,8 @@ public class MenuController {
     private Button playButton;
     @FXML
     private Button optionsButton;
+    @FXML
+    private Button viewAllScoresButton;
     @FXML
     private Label welcomeLabel;
     @FXML
@@ -44,7 +48,10 @@ public class MenuController {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    setText(String.format("%02d   %-12s   %,d", getIndex() + 1, score.name(), score.value()));
+                    setText(String.format("%02d   %-12s   %,d   Lvl %d   Lines %d   %s",
+                            getIndex() + 1, score.name(), score.value(), score.level(), score.lines(),
+                            score.date().equals(java.time.LocalDateTime.MIN)
+                                    ? "-" : score.date().format(DATE_FORMAT)));
                 }
             }
         });
@@ -77,5 +84,9 @@ public class MenuController {
     public void onOptionsButtonClicked(ActionEvent actionEvent) {
         ud.save();
         ViewSwitcher.switchTo("options.fxml");
+    }
+
+    public void onViewAllScoresClicked(ActionEvent actionEvent) {
+        ViewSwitcher.switchTo("leaderboard.fxml");
     }
 }

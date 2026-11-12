@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import htl.steyr.tetris.highscore_management.HighscoreManager;
 import htl.steyr.tetris.highscore_management.Score;
+import java.time.LocalDateTime;
 
 // Controller für den Gameover-Screen. Zeigt den erreichten Score, vergleicht ihn mit dem
 // persönlichen Highscore und trägt ihn in die globale Highscore-Liste ein.
@@ -52,7 +53,8 @@ public class GameoverController {
         highscoreLabel.setText(String.valueOf(oldHighscore));
 
         // Score zusätzlich in die globale Top-10-Liste eintragen (wird im Menü angezeigt)
-        HighscoreManager.writeHighscore(new Score(ud.getUsername(), score));
+        HighscoreManager.writeHighscore(new Score(
+                ud.getUsername(), score, LocalDateTime.now(), ud.getLevel(), ud.getLines()));
     }
 
     // "Retry"-Button: direkt eine neue Runde starten

@@ -573,6 +573,8 @@ public class GameController {
         timeline.stop();
         if (playedTimeTimeline != null) playedTimeTimeline.stop();
         ud.setScore(score);
+        ud.setLevel(level);
+        ud.setLines(lines);
         ud.save();
         ViewSwitcher.switchTo("gameover.fxml");
         secondsPlayed = 0;
