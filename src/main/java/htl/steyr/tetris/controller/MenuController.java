@@ -15,6 +15,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.Objects;
 
@@ -23,6 +25,10 @@ import java.util.Objects;
 public class MenuController {
 
 
+    @FXML
+    private VBox bannerPanel;
+    @FXML
+    private StackPane logoContainer;
     @FXML
     private Button closeButton;
     @FXML
@@ -47,6 +53,17 @@ public class MenuController {
         logoImageView.setImage(new Image(Objects.requireNonNull(
                 getClass().getResource(logoPath), "Logo resource not found: " + logoPath
         ).toExternalForm()));
+
+        // Logo füllt immer den verfügbaren Platz im Container (Seitenverhältnis bleibt erhalten)
+        logoImageView.fitWidthProperty().bind(logoContainer.widthProperty());
+        logoImageView.fitHeightProperty().bind(logoContainer.heightProperty());
+
+// Panelbreite wächst mit dem Fenster mit (ca. 22 % der Breite), damit auch seitlich Platz da ist
+        bannerPanel.sceneProperty().addListener((obs, oldScene, scene) -> {
+            if (scene != null) {
+                bannerPanel.prefWidthProperty().bind(scene.widthProperty().multiply(0.22));
+            }
+        });
 
         // bestehende Highscores aus der Datei laden und in die Liste eintragen
         highscoreList.setCellFactory(list -> new ListCell<>() {
