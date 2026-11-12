@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 // Controller für das Hauptmenü. Zeigt die Top-10-Highscores, begrüßt den eingeloggten
@@ -76,6 +77,7 @@ public class MenuController {
                     setText(null);
                     setGraphic(null);
                 } else {
+                    DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
                     setText(String.format("%02d   %-12s   %,d   Lvl %d   Lines %d   %s",
                             getIndex() + 1, score.name(), score.value(), score.level(), score.lines(),
                             score.date().equals(java.time.LocalDateTime.MIN)
