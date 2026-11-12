@@ -125,16 +125,16 @@ beim Spielen automatisch verwendet beziehungsweise angelegt.
 
 ## Team
 
-- Paul Platzer 
-- Luca Kohberger
-- Fabian Schmidberger
-- Leon Milicevic 
-- Seiler Clemens
-- Fabian Obermayer
-- Ganadene Erdenebayer
+- Paul Platzer | [arogantxr](https://github.com/arogantxr)
+- Luca Kohberger | [lkohberg](https://github.com/lkohberg)
+- Fabian Schmidberger | [Schmidi14](https://github.com/Schmidi14)
+- Leon Milicevic | [le0n08](https://github.com/le0n08)
+- Seiler Clemens | [Clemens2007](https://github.com/Clemens2007)
+- Fabian Obermayer | [fxbi09](https://github.com/fxbi09)
+- Ganadene Erdenebayer | [sgerdeneb](https://github.com/sgerdeneb)
 
 ---
 
-Dies ist ein Schulprojekt der **HTL Steyr**.
+Dies ist ein Schulprojekt der **[HTL Steyr](https://www.htl-steyr.ac.at/)**.
 
 ![Logo der HTL Steyr](https://upload.wikimedia.org/wikipedia/commons/8/8e/HTL_Steyr_Logo_quadr_blau_3c.jpg)
