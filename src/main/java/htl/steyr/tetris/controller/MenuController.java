@@ -17,6 +17,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -25,7 +29,8 @@ import java.util.Objects;
 // User und startet hier auch die Hintergrundmusik (erster Screen nach dem Login).
 public class MenuController {
 
-
+    @FXML
+    private VBox highscorePanel;
     @FXML
     private VBox bannerPanel;
     @FXML
@@ -61,15 +66,30 @@ public class MenuController {
         logoImageView.fitWidthProperty().bind(logoContainer.widthProperty());
         logoImageView.fitHeightProperty().bind(logoContainer.heightProperty());
 
-// Panelbreite wächst mit dem Fenster mit (ca. 22 % der Breite), damit auch seitlich Platz da ist
+        // Panelbreite wächst mit dem Fenster mit (ca. 22 % der Breite), damit auch seitlich Platz da ist
         bannerPanel.sceneProperty().addListener((obs, oldScene, scene) -> {
             if (scene != null) {
                 bannerPanel.prefWidthProperty().bind(scene.widthProperty().multiply(0.22));
+                highscorePanel.prefWidthProperty().bind(scene.widthProperty().multiply(0.26));
             }
         });
 
-        // bestehende Highscores aus der Datei laden und in die Liste eintragen
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+
         highscoreList.setCellFactory(list -> new ListCell<>() {
+            private final Label rankLabel = new Label();
+            private final Label nameLabel = new Label();
+            private final Region topSpacer = new Region();
+            private final Label scoreLabel = new Label();
+
+            private final Label statsLabel = new Label();
+            private final Region bottomSpacer = new Region();
+            private final Label dateLabel = new Label();
+
+            private final HBox topRow = new HBox(6, rankLabel, nameLabel, topSpacer, scoreLabel);
+            private final HBox bottomRow = new HBox(6, statsLabel, bottomSpacer, dateLabel);
+            private final VBox cellBox = new VBox(2, topRow, bottomRow);
+
             @Override
             protected void updateItem(Score score, boolean empty) {
                 super.updateItem(score, empty);
@@ -77,14 +97,20 @@ public class MenuController {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-                    setText(String.format("%02d   %-12s   %,d   Lvl %d   Lines %d   %s",
-                            getIndex() + 1, score.name(), score.value(), score.level(), score.lines(),
-                            score.date().equals(java.time.LocalDateTime.MIN)
-                                    ? "-" : score.date().format(DATE_FORMAT)));
+                    rankLabel.setText(String.format("%02d", getIndex() + 1));
+                    nameLabel.setText(score.name());
+                    scoreLabel.setText(String.format("%,d", score.value()));
+
+                    statsLabel.setText(String.format("Lvl %d   Lines %d", score.level(), score.lines()));
+                    dateLabel.setText(score.date().equals(java.time.LocalDateTime.MIN)
+                            ? "-" : score.date().format(dateFormat));
+
+                    setText(null);
+                    setGraphic(cellBox);
                 }
             }
         });
+
         highscoreList.getItems().addAll(HighscoreManager.loadHighscores());
         ud = UserSession.getUserData();
 

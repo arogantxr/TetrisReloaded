@@ -27,7 +27,7 @@
 
     <!-- Highscore links -->
     <left>
-        <VBox alignment="TOP_LEFT" prefWidth="190" spacing="12" styleClass="highscore-panel">
+        <VBox fx:id="highscorePanel" alignment="TOP_LEFT" minWidth="180" spacing="12" styleClass="highscore-panel">
             <padding>
                 <Insets bottom="24" left="20" right="16" top="16" />
             </padding>
