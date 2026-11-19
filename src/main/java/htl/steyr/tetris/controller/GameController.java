@@ -8,7 +8,6 @@ import htl.steyr.tetris.user.UserData;
 import htl.steyr.tetris.user.UserSession;
 import htl.steyr.tetris.utility.ViewSwitcher;
 import javafx.animation.KeyFrame;
-import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -75,6 +75,9 @@ public class GameController {
     private long lastTickNanos; // Zeitpunkt des letzten echten Ticks
     private Timeline countdownTimeline;
     private Timeline playedTimeTimeline;
+    // Verhindert neue Eingaben und Spielzüge, solange die Line-Clear-Animation läuft.
+    private Timeline lineClearTimeline;
+    private boolean lineClearAnimating = false;
     private boolean gameStarted = false;
     private boolean paused = false;
     private int secondsPlayed = 0;
@@ -232,6 +235,8 @@ public class GameController {
         }
         event.consume();
         if (paused) return;
+        // Während der kurzen Zeilenanimation werden keine neuen Steinaktionen ausgeführt.
+        if (lineClearAnimating) return;
 
         if (code == ud.getSetting("left")) {
             move(0, -1);
@@ -259,7 +264,7 @@ public class GameController {
 
     // Wird von der Timeline regelmäßig aufgerufen (automatisches Fallen)
     private void tick() {
-        if (paused) return;
+        if (paused || lineClearAnimating) return;
 
         // Hängt das Fenster kurz (z.B. beim Größe ändern unter Windows), holt die Timeline
         // danach alle verpassten Ticks auf einmal nach -> Stein würde durchrauschen.
@@ -366,7 +371,14 @@ public class GameController {
         board.lock(current.getShape(), blockRow, blockCol, current.getColor());
 
         java.util.List<Integer> clearedRows = getFullRows();
-        int cleared = board.clearFullLines();
+        int cleared = clearedRows.size();
+
+        // Bei mindestens einer vollen Reihe wird zuerst die Animation abgespielt.
+        // Das eigentliche Löschen im Board erfolgt erst, wenn die Animation beendet ist.
+        if (cleared > 0) {
+            lineClearAnimating = true;
+            if (timeline != null) timeline.stop();
+        }
 
         // Verhindert, dass der Platzierungssound den Line-Clear-Sound gleichzeitig überlagert.
         if (cleared > 0) {
@@ -389,7 +401,6 @@ public class GameController {
 
         if (cleared > 0) {
             lines += cleared;
-            playLineClearEffect(clearedRows);
         }
 
         updateProgression();
@@ -397,7 +408,23 @@ public class GameController {
 
         lastMoveWasRotate = false;
         holdUsed = false;
-        spawnPiece();
+
+        //mit Ki gelöst
+        if (cleared > 0) {
+            playLineClearEffect(clearedRows, () -> {
+                // Erst jetzt werden die vollen Reihen aus der Spiellogik entfernt.
+                board.clearFullLines();
+                lineClearAnimating = false;
+                spawnPiece();
+                render();
+
+                // Fall-Timeline wieder starten, falls sie zuvor gestoppt wurde.
+                if (timeline != null) timeline.play();
+            });
+        } else {
+            board.clearFullLines();
+            spawnPiece();
+        }
     }
 
     private java.util.List<Integer> getFullRows() {
@@ -414,19 +441,90 @@ public class GameController {
         }
         return fullRows;
     }
+    // Spektakulärer mehrstufiger Blink: weiße Impulse, cyanfarbener Glow und kleine Funken.
+    private void playLineClearEffect(java.util.List<Integer> clearedRows, Runnable onFinished) {
+        java.util.List<Rectangle> flashes = new java.util.ArrayList<>();
+        java.util.List<Rectangle> sparks = new java.util.ArrayList<>();
 
-    // Ein kurzer cyanfarbener Sweep markiert exakt die Reihen, die gelöscht wurden.
-    private void playLineClearEffect(java.util.List<Integer> clearedRows) {
         for (int row : clearedRows) {
             for (int col = 0; col < Board.COLS; col++) {
-                Rectangle flash = new Rectangle(cellSize, cellSize,Color.web("#63E8FF", 0.72));
+                // Die eigene Ebene liegt über dem normalen Spielfeldraster.
+                Rectangle flash = new Rectangle(cellSize, cellSize);
+                flash.setFill(Color.web("#63E8FF"));
+                flash.setOpacity(0.95);
+                flash.setArcWidth(5);
+                flash.setArcHeight(5);
+                flash.setEffect(new DropShadow(16, Color.web("#63E8FF")));
                 gameField.add(flash, col, row);
-                FadeTransition fade = new FadeTransition(Duration.millis(260), flash);
-                fade.setToValue(0);
-                fade.setOnFinished(event -> gameField.getChildren().remove(flash));
-                fade.play();
+                flashes.add(flash);
+
+                // Zwei kleine Funken pro Zelle sorgen für den explosiven Abschluss.
+                if (col % 2 == 0) {
+                    Rectangle spark = new Rectangle(Math.max(2, cellSize * 0.12),
+                            Math.max(2, cellSize * 0.12),
+                            col % 4 == 0 ? Color.WHITE : Color.web("#63E8FF"));
+                    spark.setOpacity(0);
+                    spark.setTranslateX((col % 3 - 1) * cellSize * 0.20);
+                    spark.setTranslateY(-cellSize * 0.20);
+                    spark.setEffect(new DropShadow(8, Color.web("#63E8FF")));
+                    gameField.add(spark, col, row);
+                    sparks.add(spark);
+                }
             }
         }
+
+        // Eine Timeline steuert alle visuellen Phasen ohne zusätzliche externe Animationen.
+        lineClearTimeline = new Timeline(
+                new KeyFrame(Duration.ZERO, event ->
+                        flashes.forEach(flash -> flash.setFill(Color.web("#63E8FF")))),
+                new KeyFrame(Duration.millis(80), event -> {
+                    // Weißer Impuls: alle Reihen erscheinen kurz vollständig aufgehellt.
+                    flashes.forEach(flash -> flash.setFill(Color.WHITE));
+                    sparks.forEach(spark -> spark.setOpacity(1));
+                }),
+                new KeyFrame(Duration.millis(160), event -> {
+                    flashes.forEach(flash -> flash.setFill(Color.web("#63E8FF")));
+                    sparks.forEach(spark -> {
+                        spark.setTranslateY(spark.getTranslateY() - cellSize * 0.35);
+                        spark.setScaleX(1.8);
+                        spark.setScaleY(1.8);
+                    });
+                }),
+                new KeyFrame(Duration.millis(260), event -> {
+                    // Zweiter heller Blitz und sichtbarer Glow-Puls.
+                    flashes.forEach(flash -> {
+                        flash.setFill(Color.web("#FFFFFF"));
+                        flash.setScaleX(1.08);
+                    });
+                }),
+                new KeyFrame(Duration.millis(380), event -> {
+                    // Die Zellen werden von unten nach innen zusammengedrückt.
+                    flashes.forEach(flash -> {
+                        flash.setFill(Color.web("#63E8FF"));
+                        flash.setScaleX(1);
+                        flash.setScaleY(0.45);
+                    });
+                    sparks.forEach(spark -> spark.setOpacity(0.7));
+                }),
+                new KeyFrame(Duration.millis(500), event -> {
+                    // Letzte Auflösung nach oben; danach wird die Reihe logisch entfernt.
+                    flashes.forEach(flash -> {
+                        flash.setScaleY(0);
+                        flash.setOpacity(0);
+                    });
+                    sparks.forEach(spark -> {
+                        spark.setTranslateY(spark.getTranslateY() - cellSize * 0.55);
+                        spark.setOpacity(0);
+                    });
+                }),
+                new KeyFrame(Duration.millis(520), event -> {
+                    flashes.forEach(flash -> gameField.getChildren().remove(flash));
+                    sparks.forEach(spark -> gameField.getChildren().remove(spark));
+                    onFinished.run();
+                })
+        );
+        lineClearTimeline.setCycleCount(1);
+        lineClearTimeline.play();
     }
 
     // Level richten sich nach dem Punktestand: Ab 1.000 Punkten Level 2,
@@ -594,6 +692,7 @@ public class GameController {
         if (countdownTimeline != null) countdownTimeline.stop();
         if (timeline != null) timeline.stop();
         if (playedTimeTimeline != null) playedTimeTimeline.stop();
+        if (lineClearTimeline != null) lineClearTimeline.stop();
         ud.save();
         ViewSwitcher.switchTo("menu.fxml");
     }
