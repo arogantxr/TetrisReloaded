@@ -69,6 +69,7 @@ public class MenuController {
         // Panelbreite wächst mit dem Fenster mit (ca. 22 % der Breite), damit auch seitlich Platz da ist
         bannerPanel.sceneProperty().addListener((obs, oldScene, scene) -> {
             if (scene != null) {
+                //Responsive Design: Breite der Panels an die Fenstergröße anpassen (22% für Banner, 26% für Highscore)
                 bannerPanel.prefWidthProperty().bind(scene.widthProperty().multiply(0.22));
                 highscorePanel.prefWidthProperty().bind(scene.widthProperty().multiply(0.26));
             }
@@ -76,19 +77,37 @@ public class MenuController {
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
+        //Zweizeilige Darstellung der Highscore-Einträge
         highscoreList.setCellFactory(list -> new ListCell<>() {
+            //Zeile Oben
             private final Label rankLabel = new Label();
             private final Label nameLabel = new Label();
             private final Region topSpacer = new Region();
             private final Label scoreLabel = new Label();
 
+            //Zeile Unten
             private final Label statsLabel = new Label();
             private final Region bottomSpacer = new Region();
             private final Label dateLabel = new Label();
 
+            //Zeilen zusammenfügen
             private final HBox topRow = new HBox(6, rankLabel, nameLabel, topSpacer, scoreLabel);
             private final HBox bottomRow = new HBox(6, statsLabel, bottomSpacer, dateLabel);
             private final VBox cellBox = new VBox(2, topRow, bottomRow);
+
+            //Instance Initialization Block
+            {
+                // Spacer dehnen sich aus und drücken Punkte sowie Datum rechtsbündig an den Rand
+                HBox.setHgrow(topSpacer, Priority.ALWAYS);
+                HBox.setHgrow(bottomSpacer, Priority.ALWAYS);
+
+                //CSS-Klassen
+                rankLabel.getStyleClass().add("highscore-rank");
+                nameLabel.getStyleClass().add("highscore-main");
+                scoreLabel.getStyleClass().add("highscore-main");
+                statsLabel.getStyleClass().add("highscore-meta");
+                dateLabel.getStyleClass().add("highscore-meta");
+            }
 
             @Override
             protected void updateItem(Score score, boolean empty) {
@@ -97,10 +116,12 @@ public class MenuController {
                     setText(null);
                     setGraphic(null);
                 } else {
+                    //Variablen der Oberen Zeile setzen
                     rankLabel.setText(String.format("%02d", getIndex() + 1));
                     nameLabel.setText(score.name());
                     scoreLabel.setText(String.format("%,d", score.value()));
 
+                    //Variablen der Unteren Zeile setzen
                     statsLabel.setText(String.format("Lvl %d   Lines %d", score.level(), score.lines()));
                     dateLabel.setText(score.date().equals(java.time.LocalDateTime.MIN)
                             ? "-" : score.date().format(dateFormat));

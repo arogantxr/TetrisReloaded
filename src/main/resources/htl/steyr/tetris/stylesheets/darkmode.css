@@ -128,6 +128,21 @@
     -fx-padding: 12 8;
 }
 
+.highscore-rank {
+    -fx-text-fill: #cd32ca;
+    -fx-font-weight: bold;
+}
+
+.highscore-main {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.highscore-meta {
+    -fx-text-fill: #8da1b8;
+    -fx-font-size: 11;
+}
+
 .highscore-list .scroll-bar:horizontal {
     -fx-opacity: 0;
     -fx-pref-height: 0;
