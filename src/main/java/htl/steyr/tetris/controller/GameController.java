@@ -8,12 +8,14 @@ import htl.steyr.tetris.user.UserData;
 import htl.steyr.tetris.user.UserSession;
 import htl.steyr.tetris.utility.ViewSwitcher;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
@@ -30,6 +32,8 @@ import htl.steyr.tetris.SoundEffects;
 // Enthält selbst keine Spielregeln mehr, sondern delegiert an die ausgelagerten Klassen.
 public class GameController {
 
+    @FXML
+    private Label infoLabel;
     @FXML
     private TextField elapsedTimeField;
     // FXML-Elemente, die per fx:id aus game.fxml gebunden werden
@@ -94,6 +98,8 @@ public class GameController {
     private final Score scoreCalc = new Score(); // berechnet Punktewerte
     private boolean lastMoveWasRotate = false;   // wird für die T-Spin-Erkennung gebraucht
 
+    private PauseTransition infoHideTimer;
+
     // Wird automatisch von JavaFX aufgerufen, sobald game.fxml geladen ist
     @FXML
     public void initialize() {
@@ -137,6 +143,7 @@ public class GameController {
             }
         });
 
+        showInfo("Info:\n- Hold ist ab Level 2 deaktiviert.\n- Pausen sind auf 3 pro Spielrunde begrenzt.");
         render();
         startCountdown(); // Das Spiel beginnt erst nach dem Countdown.
     }
@@ -726,5 +733,18 @@ public class GameController {
         }
         pauseButton.setText(paused ? "▶" : "⏸");
         gameField.requestFocus(); // Fokus zurück aufs Spielfeld, damit Tastatureingaben weiter ankommen
+    }
+
+    public void showInfo(String message) {
+        infoLabel.setText(message);
+        infoLabel.setVisible(true);
+
+        if (infoHideTimer != null) {
+            infoHideTimer.stop();
+        }
+
+        infoHideTimer = new PauseTransition(Duration.seconds(10));
+        infoHideTimer.setOnFinished(e -> infoLabel.setVisible(false));
+        infoHideTimer.play();
     }
 }
