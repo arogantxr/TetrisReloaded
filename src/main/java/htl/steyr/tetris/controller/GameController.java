@@ -59,7 +59,8 @@ public class GameController {
     private StackPane boardHolder; // freier Platz, in den das Spielfeld hineinskaliert wird
     @FXML
     private VBox infoPanel;        // rechte Seitenleiste mit Score, Vorschauen usw.
-    private VBox pausePanel;       // ersetzt während der Pause das Spielfeld (Musiksteuerung)
+    @FXML
+    private VBox pausePanel;      // ersetzt während der Pause das Spielfeld (Musiksteuerung)
     @FXML
     private Slider pauseMusicSlider;
     @FXML
