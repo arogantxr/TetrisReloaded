@@ -32,6 +32,16 @@ persönlichen Daten und Einstellungen werden lokal im Projektverzeichnis gespeic
 
 ## Installation und Start
 
+### Installation über GitHub Releases (Windows)
+
+1. Öffne die [Releases-Seite des Projekts](https://github.com/arogantxr/TetrisReloaded/releases).
+2. Wähle die neueste Version aus.
+3. Lade die bereitgestellte ZIP-Datei herunter.
+4. Entpacke die ZIP-Datei in einen Ordner deiner Wahl.
+5. Starte die Anwendung, indem du die enthaltene `.exe`-Datei ausführst.
+
+### Start aus dem Quellcode
+
 Repository klonen und in das Projektverzeichnis wechseln:
 
 ```bash
