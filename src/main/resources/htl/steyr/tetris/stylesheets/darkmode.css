@@ -563,3 +563,120 @@
 .app-dialog .button:default:hover {
     -fx-background-color: #20b7a4;
 }
+
+/* ===== Pause-Panel im Spiel (ersetzt das Spielfeld während der Pause) ===== */
+.pause-panel {
+    -fx-padding: 18 12;
+    -fx-background-color: transparent;
+}
+
+.pause-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+}
+
+.now-playing-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.media-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #c6d1dc;
+    -fx-font-size: 16;
+    -fx-padding: 2 10;
+}
+
+.media-button:hover {
+    -fx-text-fill: #cd32ca;
+}
+
+.song-list {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.song-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.08) transparent;
+    -fx-padding: 7 4;
+    -fx-cursor: hand;
+}
+
+.song-list .list-cell:empty {
+    -fx-border-color: transparent;
+    -fx-cursor: default;
+}
+
+.song-list .list-cell:filled:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+}
+
+.song-number {
+    -fx-text-fill: #8da1b8;
+    -fx-font-size: 11;
+}
+
+.song-name {
+    -fx-text-fill: #c6d1dc;
+    -fx-font-size: 13;
+}
+
+.song-list .list-cell:filled:selected .song-name {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.song-playing {
+    -fx-text-fill: #cd32ca;
+}
+
+.song-list .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
+/* ===== Gameover-Screen ===== */
+.gameover-screen {
+    -fx-background-color: linear-gradient(to bottom right, #081525, #0d3040 62%, #129888);
+}
+
+.gameover-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 64;
+    -fx-font-weight: bold;
+}
+
+.result-score {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 44;
+    -fx-font-weight: bold;
+}
+
+.result-stat {
+    -fx-text-fill: #c6d1dc;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.new-highscore-label {
+    -fx-text-fill: #ffc107;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+.gameover-screen .separator:vertical .line {
+    -fx-border-color: transparent transparent transparent rgba(255, 255, 255, 0.15);
+    -fx-border-width: 0 0 0 1;
+    -fx-border-insets: 0;
+}
+
+/* Auswahl ohne farbigen Balken – der laufende Song wird nur fett + mit ♪ markiert */
+.song-list .list-cell:filled:selected,
+.song-list .list-cell:filled:selected:focused {
+    -fx-background-color: transparent;
+}

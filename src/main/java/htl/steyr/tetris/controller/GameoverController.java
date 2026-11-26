@@ -19,6 +19,12 @@ public class GameoverController {
     @FXML
     private Label highscoreLabel;
     @FXML
+    private Label levelLabel;
+    @FXML
+    private Label linesLabel;
+    @FXML
+    private Label newHighscoreBadge; // nur sichtbar, wenn der alte Highscore geschlagen wurde
+    @FXML
     private Button retryButton;
     @FXML
     private Button menuButton;
@@ -45,12 +51,17 @@ public class GameoverController {
         int oldHighscore = ud.getHighscore();
 
         // neuer persönlicher Highscore? -> direkt übernehmen
-        if (score > oldHighscore) {
+        boolean newHighscore = score > oldHighscore;
+        if (newHighscore) {
             ud.setHighscore(score);
             oldHighscore = score;
         }
 
         highscoreLabel.setText(String.valueOf(oldHighscore));
+        levelLabel.setText(String.format("%02d", ud.getLevel()));
+        linesLabel.setText(String.format("%02d", ud.getLines()));
+        newHighscoreBadge.setVisible(newHighscore);
+        newHighscoreBadge.setManaged(newHighscore);
 
         // Score zusätzlich in die globale Top-10-Liste eintragen (wird im Menü angezeigt)
         HighscoreManager.writeHighscore(new Score(
