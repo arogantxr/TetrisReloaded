@@ -99,6 +99,7 @@ public class GameController {
     private boolean lastMoveWasRotate = false;   // wird für die T-Spin-Erkennung gebraucht
 
     private PauseTransition infoHideTimer;
+    private Timeline infoHideTimeline;
 
     // Wird automatisch von JavaFX aufgerufen, sobald game.fxml geladen ist
     @FXML
@@ -143,7 +144,7 @@ public class GameController {
             }
         });
 
-        showInfo("Info:\n- Hold ist ab Level 2 deaktiviert.\n- Pausen sind auf 3 pro Spielrunde begrenzt.");
+        showInfo("- Hold ist ab Level 2 deaktiviert. \n- Next-Vorschau ist ab Level 3 deaktiviert. \n- Pausen sind auf 3 pro Spielrunde begrenzt.");
         render();
         startCountdown(); // Das Spiel beginnt erst nach dem Countdown.
     }
@@ -738,15 +739,24 @@ public class GameController {
     }
 
     public void showInfo(String message) {
-        infoLabel.setText(message);
-        infoLabel.setVisible(true);
-
-        if (infoHideTimer != null) {
-            infoHideTimer.stop();
+        if (infoHideTimeline != null) {
+            infoHideTimeline.stop();
         }
 
-        infoHideTimer = new PauseTransition(Duration.seconds(10));
-        infoHideTimer.setOnFinished(e -> infoLabel.setVisible(false));
-        infoHideTimer.play();
+        int[] secondsLeft = {13};
+        infoLabel.setText(String.format("[%02d] Info:\n%s", secondsLeft[0], message));
+        infoLabel.setVisible(true);
+
+        infoHideTimeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            secondsLeft[0]--;
+            if (secondsLeft[0] <= 0) {
+                infoLabel.setVisible(false);
+                infoHideTimeline.stop();
+            } else {
+                infoLabel.setText(String.format("[%02d] Info:\n%s", secondsLeft[0], message));
+            }
+        }));
+        infoHideTimeline.setCycleCount(13);
+        infoHideTimeline.play();
     }
 }
