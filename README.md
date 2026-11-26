@@ -32,6 +32,16 @@ persönlichen Daten und Einstellungen werden lokal im Projektverzeichnis gespeic
 
 ## Installation und Start
 
+### Installation über GitHub Releases (Windows)
+
+1. Öffne die [Releases-Seite des Projekts](https://github.com/arogantxr/TetrisReloaded/releases).
+2. Wähle die neueste Version aus.
+3. Lade die bereitgestellte ZIP-Datei herunter.
+4. Entpacke die ZIP-Datei in einen Ordner deiner Wahl.
+5. Starte die Anwendung, indem du die enthaltene `.exe`-Datei ausführst.
+
+### Start aus dem Quellcode
+
 Repository klonen und in das Projektverzeichnis wechseln:
 
 ```bash
@@ -60,8 +70,8 @@ verwendet werden.
 1. Im Hauptmenü **Spielen** auswählen.
 2. Die fallenden Steine während des Countdowns vorbereiten und im Spielfeld platzieren.
 3. Vollständige Reihen bilden, um Punkte zu erhalten und im Level aufzusteigen.
-4. Nach dem Spiel wird der erreichte Punktestand angezeigt und in die Bestenliste
-   übernommen.
+4. Nach dem Spiel werden Punktestand, Level und Lines angezeigt und gemeinsam mit
+   dem Datum in die Bestenliste übernommen.
 
 Im Menü **Optionen** können die Lautstärke, das Farbschema und die Tastenbelegung
 angepasst werden. Außerdem lassen sich die Vorschau des nächsten Steins und die
@@ -74,6 +84,7 @@ Hold-Funktion ein- oder ausschalten. Änderungen werden pro Benutzer gespeichert
 - Vorschau auf den nächsten Stein
 - Hold-Funktion zum Zwischenspeichern eines Steins
 - Persönliche & Gerät Bestenliste
+- Bestenlisten-Einträge mit Datum, Level und Anzahl gelöschter Lines
 - Lokale Registrierung und Anmeldung
 - Passwortspeicherung als Hash statt im Klartext
 - Individuelle Tastenbelegung
@@ -124,16 +135,16 @@ beim Spielen automatisch verwendet beziehungsweise angelegt.
 
 ## Team
 
-- Paul Platzer 
-- Luca Kohberger
-- Fabian Schmidberger
-- Leon Milicevic 
-- Seiler Clemens
-- Fabian Obermayer
-- Ganadene Erdenebayer
+- Paul Platzer | [arogantxr](https://github.com/arogantxr)
+- Luca Kohberger | [lkohberg](https://github.com/lkohberg)
+- Fabian Schmidberger | [Schmidi14](https://github.com/Schmidi14)
+- Leon Milicevic | [le0n08](https://github.com/le0n08)
+- Seiler Clemens | [Clemens2007](https://github.com/Clemens2007)
+- Fabian Obermayer | [fxbi09](https://github.com/fxbi09)
+- Ganadene Erdenebayer | [sgerdeneb](https://github.com/sgerdeneb)
 
 ---
 
-Dies ist ein Schulprojekt der **HTL Steyr**.
+Dies ist ein Schulprojekt der **[HTL Steyr](https://www.htl-steyr.ac.at/)**.
 
-![Logo der HTL Steyr](https://upload.wikimedia.org/wikipedia/commons/8/8e/HTL_Steyr_Logo_quadr_blau_3c.jpg)
+![](src/main/resources/image/HTLSteyr_Logo_White_README.png)

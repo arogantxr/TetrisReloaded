@@ -17,8 +17,11 @@ public class UserData {
     private int volumeSfx;
     private int highscore;
     private int score = 0;
+    private int level = 1;
+    private int lines = 0;
     private boolean showNextPiece = true;
     private boolean holdEnable = true;
+    private boolean showGhostPiece = true;
     private boolean darkMode = true;
 
 
@@ -53,6 +56,7 @@ public class UserData {
         json.addProperty("highscore", highscore);
         json.addProperty("showNextPiece", showNextPiece);
         json.addProperty("holdEnable", holdEnable);
+        json.addProperty("showGhostPiece", showGhostPiece);
         json.addProperty("darkMode", darkMode);
 
         Path file = Paths.get("users", username.toLowerCase() + ".txt");
@@ -85,6 +89,7 @@ public class UserData {
             highscore = getInt(json, "highscore", 0);
             showNextPiece = !json.has("showNextPiece") || json.get("showNextPiece").getAsBoolean();
             holdEnable = !json.has("holdEnable") || json.get("holdEnable").getAsBoolean();
+            showGhostPiece = !json.has("showGhostPiece") || json.get("showGhostPiece").getAsBoolean();
             darkMode = !json.has("darkMode") || json.get("darkMode").getAsBoolean();
 
             if (json.has("settings")) {
@@ -188,6 +193,22 @@ public class UserData {
         this.score = Math.max(score, 0);
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = Math.max(level, 1);
+    }
+
+    public int getLines() {
+        return lines;
+    }
+
+    public void setLines(int lines) {
+        this.lines = Math.max(lines, 0);
+    }
+
     public boolean isShowNextPiece() {
         return showNextPiece;
     }
@@ -210,5 +231,13 @@ public class UserData {
 
     public void setDarkMode(boolean darkMode) {
         this.darkMode = darkMode;
+    }
+
+    public boolean isShowGhostPiece() {
+        return showGhostPiece;
+    }
+
+    public void setShowGhostPiece(boolean showGhostPiece) {
+        this.showGhostPiece = showGhostPiece;
     }
 }

@@ -14,7 +14,14 @@ public class Music {
     private final String[] tracks = {
             "/htl/steyr/tetris/music/music1.mp3",
             "/htl/steyr/tetris/music/music2.mp3",
-            "/htl/steyr/tetris/music/music3.mp3"
+            "/htl/steyr/tetris/music/music3.mp3",
+            "/htl/steyr/tetris/music/music4.mp3",
+            "/htl/steyr/tetris/music/music5.mp3",
+            "/htl/steyr/tetris/music/music6.mp3",
+            "/htl/steyr/tetris/music/music7.mp3",
+            "/htl/steyr/tetris/music/music8.mp3",
+            "/htl/steyr/tetris/music/music9.mp3",
+            "/htl/steyr/tetris/music/music10.mp3"
     };
 
     private int currentTrack = 0;   // Index des aktuell gespielten Songs

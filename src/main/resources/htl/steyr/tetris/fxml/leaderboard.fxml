@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane styleClass="leaderboard-screen"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="htl.steyr.tetris.controller.LeaderboardController">
+    <top>
+        <VBox spacing="8" styleClass="leaderboard-header">
+            <padding>
+                <Insets top="28" right="40" bottom="24" left="40"/>
+            </padding>
+            <Label text="LEADERBOARD" styleClass="optionsTitle"/>
+            <Label text="Alle gespeicherten Top-Scores" styleClass="muted-label"/>
+        </VBox>
+    </top>
+
+    <center>
+        <ListView fx:id="leaderboardList"
+                  styleClass="leaderboard-list"
+                  BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="10" right="40" bottom="20" left="40"/>
+            </BorderPane.margin>
+        </ListView>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="40" bottom="28" left="40"/>
+            </padding>
+            <Button fx:id="backButton"
+                    text="Back to Menu"
+                    prefWidth="160"
+                    prefHeight="44"
+                    styleClass="secondary-button"
+                    onAction="#onBackButtonClicked"/>
+        </HBox>
+    </bottom>
+</BorderPane>

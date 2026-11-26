@@ -27,14 +27,23 @@
 
     <!-- Highscore links -->
     <left>
-        <VBox alignment="TOP_LEFT" prefWidth="190" spacing="12" styleClass="highscore-panel">
+        <VBox fx:id="highscorePanel" alignment="TOP_LEFT" minWidth="180" spacing="12" styleClass="highscore-panel">
             <padding>
                 <Insets bottom="24" left="20" right="16" top="16" />
             </padding>
             <Label styleClass="sectionLabel" text="HIGHSCORE" />
             <Label styleClass="muted-label" text="Die besten Runs" />
 
-            <ListView fx:id="highscoreList" styleClass="highscore-list" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="highscoreList"
+                      VBox.vgrow="ALWAYS"
+                      styleClass="highscore-list"/>
+
+            <Button text="View all Scores"
+                    fx:id="viewAllScoresButton"
+                    prefHeight="40"
+                    maxWidth="Infinity"
+                    styleClass="secondary-button"
+                    onAction="#onViewAllScoresClicked"/>
         </VBox>
     </left>
 
