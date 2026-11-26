@@ -4,56 +4,132 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e98f8d04-21e9-4380-859b-9928024a3400" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilotDiffState.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+    <list default="true" id="e98f8d04-21e9-4380-859b-9928024a3400" name="Changes" comment="docs(README): update project description, installation instructions, and features list">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/Music.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/GameoverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/htl/steyr/tetris/controller/GameoverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/game.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/gameover.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/fxml/gameover.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/stylesheets/darkmode.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/stylesheets/darkmode.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/stylesheets/whitemode.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/htl/steyr/tetris/stylesheets/whitemode.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/a.txt" beforeDir="false" afterPath="$PROJECT_DIR$/users/a.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/lucak/IdeaProjects/TetrisReloaded" value="3LztB2KkeBHrSeEw23DPH9mFEaJ" />
+    </persistenceIdMap>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="84" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;arogantxr&quot;
+    &quot;assignee&quot;: &quot;lkohberg&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Clemens2007/Tetris.git&quot;,
-    &quot;accountId&quot;: &quot;b289e69a-5426-4883-a37c-62812410e2c6&quot;
+    &quot;url&quot;: &quot;https://github.com/arogantxr/TetrisReloaded.git&quot;,
+    &quot;accountId&quot;: &quot;f2af5136-b9e9-4fbc-805a-7cb9677acf8d&quot;
   }
-}]]></component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0" />
+      <entry key="M2" value="1.0" />
+      <entry key="M5" value="1.0" />
+      <entry key="M10" value="1.0" />
+      <entry key="M15" value="1.0" />
+      <entry key="M30" value="1.0" />
+      <entry key="H1" value="1.0" />
+      <entry key="H2" value="1.0" />
+      <entry key="H4" value="1.0" />
+      <entry key="D1" value="1.0" />
+      <entry key="W1" value="1.0" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.002243551474603584" />
+      <entry key="MS500" value="0.29524816535738263" />
+      <entry key="S2" value="0.7371346086455506" />
+      <entry key="S5" value="0.8851537645795451" />
+      <entry key="S10" value="0.9408261075137876" />
+      <entry key="S30" value="0.9798729904517027" />
+      <entry key="S60" value="0.989885342073365" />
+      <entry key="M2" value="0.9949298176622132" />
+      <entry key="M5" value="0.9979688338857953" />
+      <entry key="M10" value="0.9989839007140181" />
+      <entry key="M15" value="0.9993224857066462" />
+      <entry key="M30" value="0.9996611854556754" />
+      <entry key="H1" value="0.9998305783759943" />
+      <entry key="H2" value="0.9999152855997324" />
+      <entry key="H4" value="0.9999576419027619" />
+      <entry key="D1" value="0.9999929401925259" />
+      <entry key="W1" value="0.9999989914530236" />
+    </decayedShown>
+  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1,
+  &quot;associatedIndex&quot;: 8,
   &quot;fromUser&quot;: false
 }</component>
-  <component name="ProjectId" id="3KP0sru4PHmrvU8DiMXgKAEn31K" />
-  <component name="ProjectLevelVcsManager">
-    <OptionsSetting value="false" id="Update" />
+  <component name="ProjectId" id="3LgDSUOm0LdabVmJDY4KvOEqwN0" />
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="ensembleEnabled" value="true" />
+        <option name="ensembleTierId" value="balance" />
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="ensemble" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+    <option name="version" value="1" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -61,62 +137,51 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Launcher.executor": "Run",
+    "Maven.javafx:run.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/paulp/HTL_STEYR_3AHITN/SEW/JAVA/TetrisReloaded",
     "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+    "nodejs_package_manager_path": "npm",
+    "python.packages.toolwindow.project.migrated.to.right.top.v2": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Launcher">
-    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="htl.steyr.tetris.Launcher" />
-      <module name="Tetris" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="htl.steyr.tetris.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Launcher" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
       </set>
     </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e98f8d04-21e9-4380-859b-9928024a3400" name="Changes" comment="" />
-      <created>1791444105909</created>
+      <changelist id="e98f8d04-21e9-4380-859b-9928024a3400" name="Changes" comment="docs(README): update project description, installation instructions, and features list" />
+      <created>1793866820896</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1791444105909</updated>
+      <updated>1793866820896</updated>
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="docs(README): update project description, installation instructions, and features list" />
+    <option name="LAST_COMMIT_MESSAGE" value="docs(README): update project description, installation instructions, and features list" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

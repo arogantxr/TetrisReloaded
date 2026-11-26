@@ -1,6 +1,7 @@
 package htl.steyr.tetris.controller;
 
 import htl.steyr.tetris.Board;
+import htl.steyr.tetris.Music;
 import htl.steyr.tetris.Pieces;
 import htl.steyr.tetris.Score;
 import htl.steyr.tetris.SoundEffects;
@@ -14,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
@@ -56,6 +59,15 @@ public class GameController {
     private StackPane boardHolder; // freier Platz, in den das Spielfeld hineinskaliert wird
     @FXML
     private VBox infoPanel;        // rechte Seitenleiste mit Score, Vorschauen usw.
+    private VBox pausePanel;       // ersetzt während der Pause das Spielfeld (Musiksteuerung)
+    @FXML
+    private Slider pauseMusicSlider;
+    @FXML
+    private ListView<String> songList;
+    @FXML
+    private Label nowPlayingLabel;
+    @FXML
+    private Label volumeValueLabel;
 
     private static final double MIN_CELL_SIZE = 12; // kleinste erlaubte Zellgröße
     private double cellSize = 25; // Pixelgröße einer Zelle, passt sich an die Fenstergröße an
@@ -147,8 +159,97 @@ public class GameController {
             }
         });
 
+        setupPausePanel();
+
         render();
         startCountdown(); // Das Spiel beginnt erst nach dem Countdown.
+    }
+
+    // Bereitet das Pause-Panel vor: Lautstärke-Slider, Songliste (ohne .mp3) und
+    // Markierung des aktuell laufenden Songs.
+    private void setupPausePanel() {
+        Music music = Music.getInstance();
+
+        pauseMusicSlider.setValue(ud.getVolumeMusic());
+        volumeValueLabel.setText(ud.getVolumeMusic() + "%");
+        pauseMusicSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            music.setVolume(newVal.doubleValue());
+            ud.setVolumeMusic(newVal.intValue()); // wird beim Fortsetzen/Verlassen gespeichert
+            volumeValueLabel.setText(newVal.intValue() + "%");
+        });
+
+        songList.getItems().setAll(music.getTrackNames());
+        songList.setCellFactory(list -> new SongCell());
+        showCurrentTrack(music.currentTrackProperty().get());
+
+        // Klick auf einen Song spielt diesen ab
+        songList.setOnMouseClicked(e -> {
+            int index = songList.getSelectionModel().getSelectedIndex();
+            if (index >= 0 && index != music.currentTrackProperty().get()) {
+                music.playTrack(index);
+            }
+        });
+
+        // Auswahl mitziehen, wenn der Song wechselt (Buttons oder automatisch am Songende)
+        music.currentTrackProperty().addListener(trackListener);
+    }
+
+    private final javafx.beans.value.ChangeListener<Number> trackListener =
+            (obs, oldVal, newVal) -> showCurrentTrack(newVal.intValue());
+
+    // Markiert den laufenden Song in der Playlist und zeigt ihn unter "Now Playing" an
+    private void showCurrentTrack(int index) {
+        songList.getSelectionModel().select(index);
+        songList.refresh(); // ♪-Symbol in den Zellen aktualisieren
+        if (index >= 0 && index < songList.getItems().size()) {
+            nowPlayingLabel.setText(songList.getItems().get(index));
+        }
+    }
+
+    // Eigene Listenzelle für die Playlist: Nummer, Songname und ♪ beim laufenden Song
+    private static class SongCell extends javafx.scene.control.ListCell<String> {
+        private final Label number = new Label();
+        private final Label name = new Label();
+        private final Label playing = new Label("♪");
+        private final javafx.scene.layout.HBox box;
+
+        SongCell() {
+            number.getStyleClass().add("song-number");
+            name.getStyleClass().add("song-name");
+            playing.getStyleClass().add("song-playing");
+            Pane spacer = new Pane();
+            javafx.scene.layout.HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+            box = new javafx.scene.layout.HBox(10, number, name, spacer, playing);
+            box.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        }
+
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty || item == null) {
+                setGraphic(null);
+                setText(null);
+                return;
+            }
+            number.setText(String.format("%02d", getIndex() + 1));
+            name.setText(item);
+            playing.setVisible(getIndex() == Music.getInstance().currentTrackProperty().get());
+            setText(null);
+            setGraphic(box);
+        }
+    }
+
+    // Listener am Music-Singleton wieder entfernen, sonst bleibt dieser Controller im Speicher
+    private void detachMusicListener() {
+        Music.getInstance().currentTrackProperty().removeListener(trackListener);
+    }
+
+    public void onPrevSongClicked(ActionEvent actionEvent) {
+        Music.getInstance().previous();
+    }
+
+    public void onNextSongClicked(ActionEvent actionEvent) {
+        Music.getInstance().next();
     }
 
     // Erstellt einmalig das 20x10-Raster aus Rectangle-Objekten und fügt sie ins GridPane ein
@@ -707,6 +808,7 @@ public class GameController {
         ud.setLevel(level);
         ud.setLines(lines);
         ud.save();
+        detachMusicListener();
         ViewSwitcher.switchTo("gameover.fxml");
         secondsPlayed = 0;
     }
@@ -718,6 +820,7 @@ public class GameController {
         if (playedTimeTimeline != null) playedTimeTimeline.stop();
         if (lineClearTimeline != null) lineClearTimeline.stop();
         ud.save();
+        detachMusicListener();
         ViewSwitcher.switchTo("menu.fxml");
     }
 
@@ -734,7 +837,9 @@ public class GameController {
         paused = !paused;
 
         // Wenn das Spiel pausiert ist, wird das Spielfeld ausgeblendet, damit der Spieler seinen Spielzug nicht planen kann.
+        // An seiner Stelle erscheint die Musiksteuerung mit der Songliste.
         gameField.setVisible(!paused);
+        pausePanel.setVisible(paused);
 
         if (paused) {
             pausesUsed++;
@@ -743,6 +848,7 @@ public class GameController {
             pauseLabel.setText(String.valueOf(MAX_PAUSES - pausesUsed));
         // Wenn keine Pausen mehr übrig sind, den Button deaktivieren
         } else {
+            ud.save(); // ggf. geänderte Musiklautstärke sichern
             if (playedTimeTimeline != null) playedTimeTimeline.play();
             if (MAX_PAUSES - pausesUsed == 0) {
                 pauseButton.setDisable(true);

@@ -3,7 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -24,6 +27,39 @@
                 <StackPane fx:id="boardHolder" VBox.vgrow="ALWAYS" minWidth="0" minHeight="0" alignment="TOP_CENTER">
                     <StackPane maxWidth="-Infinity" maxHeight="-Infinity">
                         <GridPane fx:id="gameField" focusTraversable="true" maxWidth="-Infinity" maxHeight="-Infinity" />
+                        <!-- Wird während der Pause anstelle des Spielfelds angezeigt (Musiksteuerung + Songliste).
+                             pref 0 sorgt dafür, dass das Panel exakt die Größe des Spielfelds übernimmt. -->
+                        <VBox fx:id="pausePanel" visible="false" alignment="TOP_CENTER" spacing="10"
+                              minWidth="0" minHeight="0" prefWidth="0" prefHeight="0" styleClass="pause-panel">
+
+                            <Label styleClass="pause-title" text="PAUSE" />
+
+                            <!-- Aktueller Song + Steuerung -->
+                            <Label styleClass="card-caption" text="NOW PLAYING" />
+                            <Label fx:id="nowPlayingLabel" styleClass="now-playing-label" text="-" />
+                            <HBox alignment="CENTER" spacing="6">
+                                <Button focusTraversable="false" onAction="#onPrevSongClicked" styleClass="media-button" text="⏮">
+                                    <tooltip><Tooltip text="Previous song" /></tooltip>
+                                </Button>
+                                <Button focusTraversable="false" onAction="#onPauseButtonClicked" styleClass="media-button" text="▶">
+                                    <tooltip><Tooltip text="Weiterspielen" /></tooltip>
+                                </Button>
+                                <Button focusTraversable="false" onAction="#onNextSongClicked" styleClass="media-button" text="⏭">
+                                    <tooltip><Tooltip text="Next song" /></tooltip>
+                                </Button>
+                            </HBox>
+                            <HBox alignment="CENTER" spacing="8">
+                                <Label styleClass="card-caption" text="VOL" />
+                                <Slider fx:id="pauseMusicSlider" focusTraversable="false" max="100" minWidth="0" HBox.hgrow="ALWAYS" />
+                                <Label fx:id="volumeValueLabel" minWidth="34" styleClass="card-caption" text="50%" />
+                            </HBox>
+
+                            <!-- Alle verfügbaren Songs -->
+                            <Label maxWidth="Infinity" styleClass="card-caption" text="PLAYLIST">
+                                <VBox.margin><Insets top="8" /></VBox.margin>
+                            </Label>
+                            <ListView fx:id="songList" focusTraversable="false" minHeight="0" VBox.vgrow="ALWAYS" styleClass="song-list" />
+                        </VBox>
                         <!-- Liegt über dem Spielfeld und zeigt den Countdown bis zum Start. -->
                         <Label fx:id="countdownLabel" mouseTransparent="true" styleClass="countdown-label" text="3" />
                     </StackPane>
