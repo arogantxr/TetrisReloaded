@@ -58,6 +58,7 @@ public class GameController {
     @FXML
     private StackPane boardHolder; // freier Platz, in den das Spielfeld hineinskaliert wird
     @FXML
+    private VBox infoPanel;        // rechte Seitenleiste mit Score, Vorschauen usw.
     private VBox pausePanel;       // ersetzt während der Pause das Spielfeld (Musiksteuerung)
     @FXML
     private Slider pauseMusicSlider;
@@ -119,6 +120,13 @@ public class GameController {
         // Spielfeld mit dem Fenster mitwachsen/-schrumpfen lassen
         boardHolder.widthProperty().addListener((obs, oldVal, newVal) -> resizeBoard());
         boardHolder.heightProperty().addListener((obs, oldVal, newVal) -> resizeBoard());
+
+        // Seitenleiste wächst mit der Fensterbreite mit (ca. 25 %), min/max kommen aus game.fxml
+        infoPanel.sceneProperty().addListener((obs, oldScene, scene) -> {
+            if (scene != null) {
+                infoPanel.prefWidthProperty().bind(scene.widthProperty().multiply(0.25));
+            }
+        });
 
         next = Pieces.random(); // ersten "next"-Stein vorbereiten
         spawnPiece();           // den ersten echten Stein spawnen
@@ -280,6 +288,10 @@ public class GameController {
                 r.setHeight(cellSize);
             }
         }
+
+        // Vorschau-Steine orientieren sich an der Zellgröße -> neu zeichnen
+        updateNextPreview();
+        updateHoldPreview();
     }
 
     // (Neu)Startet die Fall-Timeline mit einer bestimmten Geschwindigkeit (in Millisekunden pro Reihe).
@@ -737,7 +749,6 @@ public class GameController {
     private void drawPreview(Pane pane, Pieces piece) {
         pane.getChildren().clear();
 
-        int size = 18;
         int[][] shape = piece.getShape();
 
         // Bounding Box berechnen
@@ -755,8 +766,17 @@ public class GameController {
             }
         }
 
-        int blockWidth = (maxCol - minCol + 1) * size;
-        int blockHeight = (maxRow - minRow + 1) * size;
+        int colsUsed = maxCol - minCol + 1;
+        int rowsUsed = maxRow - minRow + 1;
+
+        // Blockgröße passt sich an die Größe der Pane an (mit etwas Rand),
+        // wird aber nie größer als die Zellen im Spielfeld
+        double fit = Math.min((pane.getWidth() - 12) / colsUsed, (pane.getHeight() - 12) / rowsUsed);
+        double size = Math.floor(Math.min(fit, cellSize));
+        if (size <= 0) return; // Pane ist noch nicht gelayoutet
+
+        double blockWidth = colsUsed * size;
+        double blockHeight = rowsUsed * size;
 
         // Zentrier-Offset
         double offsetX = (pane.getWidth() - blockWidth) / 2;

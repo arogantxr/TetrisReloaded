@@ -48,10 +48,6 @@
     -fx-border-radius: 12 0 0 12;
 }
 
-.hold-card .preview-pane {
-    -fx-min-height: 106;
-}
-
 .menu-screen, .auth-screen, .options-screen {
     -fx-background-color: linear-gradient(to bottom right, #f5f1fb, #e9e3f5 62%, #cde8e3);
     -fx-padding: 0;
@@ -311,7 +307,7 @@
 }
 
 .stat-card {
-    -fx-padding: 12;
+    -fx-padding: 10;
     -fx-background-color: rgba(23, 35, 51, 0.055);
     -fx-background-radius: 8;
     -fx-border-color: rgba(23, 35, 51, 0.08);
