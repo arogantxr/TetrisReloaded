@@ -78,6 +78,7 @@
 
                                 <Button fx:id="showNextPieceButton" prefWidth="250" styleClass="secondary-button" text="Show next piece: Enabled" />
                                 <Button fx:id="holdEnableButton" prefWidth="250" styleClass="secondary-button" text="Hold-Funktion: Aktiviert" />
+                        <Button fx:id="showGhostPieceButton" prefWidth="250" styleClass="secondary-button" text="Ghost-Piece: Aktiviert" />
                             </VBox>
 
                                   <!-- DATA -->

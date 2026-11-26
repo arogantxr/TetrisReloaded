@@ -18,6 +18,11 @@ public class OptionsController {
 
     public Button white_darkmode_button;
 
+    private Button currentKeyButton;
+
+    @FXML
+    public Button showGhostPieceButton;
+
     @FXML
     private Slider musicSlider;
     @FXML
@@ -54,11 +59,10 @@ public class OptionsController {
     @FXML
     private Button pauseKeyButton;
 
-    private Button currentKeyButton; // merkt sich, welcher Button gerade auf Tasteneingabe wartet
-
     private UserData ud;
     private boolean holdEnabled;
     private boolean showNextPieceEnabled;
+    private boolean ghostPieceEnabled;
 
     @FXML
     public void initialize() {
@@ -86,6 +90,8 @@ public class OptionsController {
         updateShowNextPieceButton();
         holdEnabled = ud.isHoldEnable();
         updateHoldEnableButton();
+        ghostPieceEnabled = ud.isShowGhostPiece();
+        updateGhostPieceButton();
 
         // Für jede Spielaktion den passenden Button mit der aktuellen Taste beschriften
         // und Klick-Listener zum Neubelegen einrichten
@@ -113,6 +119,10 @@ public class OptionsController {
         showNextPieceButton.setOnAction(e -> {
             showNextPieceEnabled = !showNextPieceEnabled;
             updateShowNextPieceButton();
+        });
+        showGhostPieceButton.setOnAction(e -> {
+            ghostPieceEnabled = !ghostPieceEnabled;
+            updateGhostPieceButton();
         });
         // Speichern erst erlauben, wenn wirklich jeder Taste eine Belegung zugewiesen ist
         saveButton.setDisable(!allKeysAssigned());
@@ -152,6 +162,7 @@ public class OptionsController {
         ud.setVolumeSfx((int) soundSlider.getValue());
         ud.setShowNextPiece(showNextPieceEnabled);
         ud.setHoldEnable(holdEnabled);
+        ud.setShowGhostPiece(ghostPieceEnabled);
         ud.setDarkMode(ViewSwitcher.isDarkMode());
         ud.save();
 
@@ -195,12 +206,6 @@ public class OptionsController {
         }
     }
 
-    private void closeWindow() {
-        ud.save();
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    }
-
     // Setzt ALLE Einstellungen (Lautstärke + Tastenbelegung) auf die Standardwerte zurück,
     // nach vorheriger Bestätigung durch den User
     private void clearAllData() {
@@ -215,12 +220,15 @@ public class OptionsController {
         ud.setVolumeSfx(50);
         ud.setShowNextPiece(true);
         ud.setHoldEnable(true);
+        ud.setShowGhostPiece(true);
         musicSlider.setValue(50);
         soundSlider.setValue(50);
         showNextPieceEnabled = true;
         updateShowNextPieceButton();
         holdEnabled = true;
         updateHoldEnableButton();
+        ghostPieceEnabled = true;
+        updateGhostPieceButton();
 
         // Standard-Tastenbelegung wiederherstellen
         ud.setSetting("left", KeyCode.A);
@@ -250,6 +258,10 @@ public class OptionsController {
 
     private void updateShowNextPieceButton() {
         showNextPieceButton.setText("Show next piece: " + (showNextPieceEnabled ? "Aktiviert" : "Deaktiviert"));
+    }
+
+    private void updateGhostPieceButton() {
+        showGhostPieceButton.setText("Ghost-Piece: " + (ghostPieceEnabled ? "Aktiviert" : "Deaktiviert"));
     }
 
     // Beschriftet einen Tasten-Button mit der aktuellen Belegung und richtet den Klick-Listener
